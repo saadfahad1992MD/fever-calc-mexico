@@ -521,10 +521,10 @@ function App({ onChangeLanguage }) {
                   {/* Step 3: Weight Selection */}
                   {age && (
                     <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
-                      <label className="text-sm font-medium">Child's Weight (kg)</label>
+                      <label className="text-sm font-medium">Peso del Niño (kg)</label>
                       <Select value={weight} onValueChange={setWeight}>
                         <SelectTrigger className="text-lg">
-                          <SelectValue placeholder="Select weight" />
+                          <SelectValue placeholder="Seleccione peso" />
                         </SelectTrigger>
                         <SelectContent>
                           {ageCategory === 'bebé' ? (
