@@ -21,7 +21,7 @@ import { medicationsMexicoEnglish } from './data/medicationsMexicoEnglish.js'
 const medications = { paracetamol: medicationsMexicoEnglish.paracetamol, ibuprofen: medicationsMexicoEnglish.ibuprofen };
 const suppositories = medicationsMexicoEnglish.suppositories;
 
-function AppEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
+function AppEnglish({ onChangeLanguage }) {
   const [weight, setWeight] = useState('') // String for text input
   const [age, setAge] = useState('') // String for text input
   const [ageUnit, setAgeUnit] = useState('') // 'months' or 'years' - empty by default
@@ -34,8 +34,8 @@ function AppEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
   const [medicationType, setMedicationType] = useState('syrup') // 'syrup' or 'suppository'
 
   // Select medications based on country
-  const medicationsData = country === 'PH' ? medicationsPhilippines : medications
-  const suppositoriesData = country === 'PH' ? medicationsPhilippines.suppositories : suppositories
+  const medicationsData = medications
+  const suppositoriesData = suppositories
 
   // Function to convert Arabic numerals to English numerals
   const convertArabicToEnglish = (str) => {
@@ -463,7 +463,7 @@ function AppEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Hide language toggle for Philippines - English only until Tagalog translation is ready */}
-      {country !== 'PH' && (
+      { (
         <LanguageToggle currentLanguage="en" targetLanguage="ar" onToggle={onChangeLanguage} />
       )}
       {/* Top Brand Header */}
@@ -667,7 +667,7 @@ function AppEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
                     <span>Syrup</span>
                   </Button>
                   {/* Hide suppositories for Philippines - not available there */}
-                  {country !== 'PH' && (
+                  { (
                     <Button
                       variant={medicationType === 'suppository' ? 'default' : 'outline'}
                       onClick={() => changeMedicationType('suppository')}

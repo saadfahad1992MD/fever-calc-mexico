@@ -33,8 +33,8 @@ function App({ onChangeLanguage }) {
   const [medicationType, setMedicationType] = useState('jarabe') // 'jarabe' or 'supositorio'
 
   // Select medications based on country
-  const medicationsData = country === 'PH' ? medicationsPhilippines : medications
-  const suppositoriesData = country === 'PH' ? medicationsPhilippines.suppositories : suppositories
+  const medicationsData = medications
+  const suppositoriesData = suppositories
 
   // Function to convert Arabic numerals to English numerals
   const convertArabicToEnglish = (str) => {
@@ -462,7 +462,7 @@ function App({ onChangeLanguage }) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Hide language toggle for Philippines - English only until Tagalog translation is ready */}
-      {country !== 'PH' && (
+      { (
         <LanguageToggle currentLanguage="en" targetLanguage="ar" onToggle={onChangeLanguage} />
       )}
       {/* Top Brand Header */}
@@ -666,7 +666,7 @@ function App({ onChangeLanguage }) {
                     <span>Syrup</span>
                   </Button>
                   {/* Hide suppositories for Philippines - not available there */}
-                  {country !== 'PH' && (
+                  { (
                     <Button
                       variant={medicationType === 'supositorio' ? 'default' : 'outline'}
                       onClick={() => changeMedicationType('supositorio')}
