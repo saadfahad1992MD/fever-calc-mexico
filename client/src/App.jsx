@@ -423,11 +423,11 @@ function App({ onChangeLanguage }) {
           <TabsList className="grid w-full grid-cols-2 mb-6">
             <TabsTrigger value="calculator" className="flex items-center gap-2">
               <Calculator className="w-4 h-4" />
-              Calculator
+              Calculadora
             </TabsTrigger>
             <TabsTrigger value="info" className="flex items-center gap-2">
               <Info className="w-4 h-4" />
-              Medical Information
+              Información Médica
             </TabsTrigger>
           </TabsList>
 
