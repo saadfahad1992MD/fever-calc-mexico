@@ -109,7 +109,7 @@ function App({ onChangeLanguage }) {
       let volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
       
       // Round DOWN to nearest 0.1ml for drops, 0.5ml for syrups (safety first)
-      if (selectedMedication.form === 'Drops') {
+      if (selectedMedication.form === 'Gotas') {
         volumeNeeded = Math.floor(volumeNeeded * 10) / 10  // Round down to 0.1ml
       } else {
         volumeNeeded = Math.floor(volumeNeeded * 2) / 2    // Round down to 0.5ml
@@ -142,15 +142,15 @@ function App({ onChangeLanguage }) {
   }
 
   // Function to filter appropriate suppositories based on age and weight
-  const getAppropriateSuppositoriesForAge = (ageInMonths, weightNum) => {
+  const getAppropriateSupositoriosForAge = (ageInMonths, weightNum) => {
     if (!weightNum) return []
     
     // Get all suppositories from the suppositories object
     const paracetamolSupps = suppositoriesData.paracetamol || []
     
-    const allSuppositories = [...paracetamolSupps]
+    const allSupositorios = [...paracetamolSupps]
     
-    return allSuppositories.filter(med => {
+    return allSupositorios.filter(med => {
       // For paracetamol suppositories, use weight-based filtering only
       if (med.ingredient === 'Paracetamol') {
         const weightRange = med.weightRange
@@ -179,8 +179,8 @@ function App({ onChangeLanguage }) {
     const ageInMonths = ageUnit === 'años' ? parseFloat(age) * 12 : parseFloat(age)
     const isUnder6Months = age && ageUnit && ageInMonths < 6
     
-    // Check if medication is Adol Drops and age is 2 years or above
-    const isAdolDrops = medication.id === 'adol_drops'
+    // Check if medication is Adol Gotas and age is 2 years or above
+    const isAdolGotas = medication.id === 'adol_drops'
     const is2YearsOrAbove = age && ageUnit === 'años' && parseFloat(age) >= 2
     
     // Check if supositorio is suitable for current age/weight
@@ -208,7 +208,7 @@ function App({ onChangeLanguage }) {
 
     }
     
-    const isDisabled = (isIbuprofeno && isUnder6Months) || isSuppositoryUnsuitable || (isAdolDrops && is2YearsOrAbove)
+    const isDisabled = (isIbuprofeno && isUnder6Months) || isSuppositoryUnsuitable || (isAdolGotas && is2YearsOrAbove)
 
     const handleClick = () => {
       // Check if age and weight are entered
@@ -227,8 +227,8 @@ function App({ onChangeLanguage }) {
         return
       }
       
-      if (isAdolDrops && is2YearsOrAbove) {
-        alert('⚠️ Warning: Adol Drops are suitable for children under 2 years old only')
+      if (isAdolGotas && is2YearsOrAbove) {
+        alert('⚠️ Warning: Adol Gotas are suitable for children under 2 years old only')
         return
       }
       setSelectedMedication(medication)
@@ -301,7 +301,7 @@ function App({ onChangeLanguage }) {
                 ⚠️ For 6 months and older
               </p>
             )}
-            {(isAdolDrops && is2YearsOrAbove) && (
+            {(isAdolGotas && is2YearsOrAbove) && (
               <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
                 ⚠️ For children under 2 years
               </p>
@@ -719,7 +719,7 @@ function App({ onChangeLanguage }) {
                         <div className="grid gap-2 text-sm">
                           {result.isSuppository ? (
                             <p className="text-lg font-bold text-green-700">
-                              <strong>Number of Suppositories:</strong> {result.suppositories} supositorio
+                              <strong>Number of Supositorios:</strong> {result.suppositories} supositorio
                             </p>
                           ) : (
                             <p className="text-lg font-bold text-green-700">
@@ -817,10 +817,10 @@ function App({ onChangeLanguage }) {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Info className="h-5 w-5 text-blue-600" />
-                    Comprehensive Drug Families Guide
+                    Guía Completa de Familias de Medicamentos
                   </CardTitle>
                   <CardDescription>
-                    Learn about different types of medications, how they work, and available brand names
+                    Conozca los diferentes tipos de medicamentos, cómo funcionan y las marcas disponibles
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -830,7 +830,7 @@ function App({ onChangeLanguage }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Pill className="h-5 w-5 text-blue-600" />
-                          <span className="text-lg font-semibold">Paracetamol Family (Acetaminophen)</span>
+                          <span className="text-lg font-semibold">Familia del Paracetamol (Acetaminofén)</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
@@ -840,7 +840,7 @@ function App({ onChangeLanguage }) {
                             Popular Brand Names
                           </h4>
                           <div className="text-purple-800 text-sm mb-3">
-                            Available forms: <strong>suppositories, syrup, drops</strong>
+                            Formas disponibles: <strong>suppositories, syrup, drops</strong>
                           </div>
                           
                           {/* Note about same concentration */}
@@ -900,14 +900,14 @@ function App({ onChangeLanguage }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Shield className="h-5 w-5 text-green-600" />
-                          <span className="text-lg font-semibold">Drug Comparison and Usage Guidelines</span>
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">Full Guide</Badge>
+                          <span className="text-lg font-semibold">Comparación de Medicamentos y Guías de Uso</span>
+                          <Badge variant="secondary" className="bg-green-100 text-green-800">Guía Completa</Badge>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         {/* Comparison Table */}
                         <div className="bg-gray-50 p-3 md:p-6 rounded-lg">
-                          <h4 className="font-semibold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Drug Comparison Table</h4>
+                          <h4 className="font-semibold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Tabla de Comparación de Medicamentos</h4>
                           
                           {/* Mobile Card View */}
                           <div className="md:hidden space-y-3">
@@ -916,20 +916,20 @@ function App({ onChangeLanguage }) {
                               <h5 className="text-center font-bold text-blue-700 mb-2 text-sm">Paracetamol</h5>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Minimum Age:</span>
+                                  <span className="font-medium text-gray-700">Edad Mínima:</span>
                                   <span className="text-blue-700">2 months</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Duration of Effect:</span>
-                                  <span className="text-blue-700">4-6 hours</span>
+                                  <span className="font-medium text-gray-700">Duración del Efecto:</span>
+                                  <span className="text-blue-700">4-6 horas</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
                                   <span className="font-medium text-gray-700">Máximo Diario:</span>
-                                  <span className="text-blue-700">5 doses</span>
+                                  <span className="text-blue-700">5 dosis</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
                                   <span className="font-medium text-gray-700">Available Forms:</span>
-                                  <span className="text-blue-700">Drops, Syrup, suppositories</span>
+                                  <span className="text-blue-700">Gotas, Syrup, suppositories</span>
                                 </div>
                                 <div className="flex justify-between">
                                   <span className="font-medium text-gray-700">Advertencia Importante:</span>
@@ -944,12 +944,12 @@ function App({ onChangeLanguage }) {
                               <p className="text-center text-xs text-red-500 mb-2">NSAIDs</p>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Minimum Age:</span>
+                                  <span className="font-medium text-gray-700">Edad Mínima:</span>
                                   <span className="text-red-700">6 months</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Duration of Effect:</span>
-                                  <span className="text-red-700">6-8 hours</span>
+                                  <span className="font-medium text-gray-700">Duración del Efecto:</span>
+                                  <span className="text-red-700">6-8 horas</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
                                   <span className="font-medium text-gray-700">Máximo Diario:</span>
@@ -971,7 +971,7 @@ function App({ onChangeLanguage }) {
                             <table className="min-w-full text-sm border-collapse bg-white">
                               <thead>
                                 <tr className="border-b border-gray-300">
-                                  <th className="text-right p-3 font-semibold whitespace-nowrap">Property</th>
+                                  <th className="text-right p-3 font-semibold whitespace-nowrap">Propiedad</th>
                                   <th className="text-center p-3 font-semibold text-blue-700 whitespace-nowrap">Paracetamol</th>
                                   <th className="text-center p-3 font-semibold text-red-700 whitespace-nowrap">
                                     Ibuprofeno
@@ -982,23 +982,23 @@ function App({ onChangeLanguage }) {
                               </thead>
                               <tbody className="divide-y divide-gray-200">
                                 <tr>
-                                  <td className="p-3 font-medium whitespace-nowrap">Minimum Age</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Edad Mínima</td>
                                   <td className="p-3 text-center text-blue-700 whitespace-nowrap">2 months</td>
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">6 months</td>
                                 </tr>
                                 <tr className="bg-gray-25">
-                                  <td className="p-3 font-medium whitespace-nowrap">Duration of Effect</td>
-                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">4-6 hours</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">6-8 hours</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Duración del Efecto</td>
+                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">4-6 horas</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">6-8 horas</td>
                                 </tr>
                                 <tr>
-                                  <td className="p-3 font-medium whitespace-nowrap">Maximum Daily Doses</td>
-                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">5 doses</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Dosis Diarias Máximas</td>
+                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">5 dosis</td>
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">3 doses</td>
                                 </tr>
                                 <tr className="bg-gray-25">
                                   <td className="p-3 font-medium whitespace-nowrap">Available Forms</td>
-                                  <td className="p-3 text-center text-blue-700">Drops, Syrup, suppositories</td>
+                                  <td className="p-3 text-center text-blue-700">Gotas, Syrup, suppositories</td>
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">Mainly Syrup</td>
                                 </tr>
                                 <tr>
@@ -1039,7 +1039,7 @@ function App({ onChangeLanguage }) {
                             <span className="text-blue-600 font-bold text-xs md:text-sm">1</span>
                           </div>
                           <span className="text-blue-800 font-semibold text-sm md:text-lg">
-                            What is the difference between paracetamol medications and ibuprofen medications?
+                            ¿Cuál es la diferencia entre los medicamentos de paracetamol y los de ibuprofeno?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1089,7 +1089,7 @@ function App({ onChangeLanguage }) {
                         <div className="bg-orange-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <div className="text-orange-800 space-y-2">
                             <p>
-                              <strong className="text-red-600">Do not combine medications containing Paracetamol</strong> at the same time - there must be 4-6 hours between them.
+                              <strong className="text-red-600">Do not combine medications containing Paracetamol</strong> at the same time - there must be 4-6 horas between them.
                             </p>
                             <p>
                               <strong className="text-red-600">Consult your doctor before combining different fever medications.</strong>
@@ -1136,11 +1136,11 @@ function App({ onChangeLanguage }) {
                 <AlertDescription className="text-red-800">
                   <strong className="block mb-2">Important Safety Warnings:</strong>
                   <ul className="list-disc space-y-1 text-sm" style={{listStylePosition: 'inside', direction: 'ltr', paddingLeft: '1.5rem'}}>
-                    <li>Never exceed the recommended dose or allowed frequency</li>
+                    <li>Nunca exceda la dosis recomendada or allowed frequency</li>
                     <li>Do not give more than one type of medication containing the same active ingredient</li>
                     <li>Do not use medication for more than 3-5 days without medical consultation</li>
                     <li>Ensure there is no allergy to the medication before use</li>
-                    <li>Keep all medications out of reach of children</li>
+                    <li>Mantenga todos los medicamentos fuera del alcance de los niños</li>
                   </ul>
                 </AlertDescription>
               </Alert>
