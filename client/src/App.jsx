@@ -84,14 +84,18 @@ function App({ onChangeLanguage }) {
       frequency = 'Cada 6-8 horas'
       maxDailyDoses = 3
       maxSingleDose = 400 // Maximum 400mg per dose
+    } else if (selectedMedication.ingredient === 'Diclofenaco') {
+      // New diclofenac calculation logic based on weight ranges
       frequency = 'Cada 8-12 horas'
       maxDailyDoses = 2
       
       // Check age requirement (minimum 1 year)
       if (ageInMonths < 12) {
+        setResult({ error: 'Diclofenaco es adecuado para niños de un año en adelante' })
         return
       }
       
+      // Weight-based dosing for diclofenac suppositories
       if (selectedMedication.form === 'supositorio') {
         let appropriateDose = 0
         if (weightNum >= 8 && weightNum <= 16) {
@@ -99,11 +103,13 @@ function App({ onChangeLanguage }) {
         } else if (weightNum >= 17 && weightNum <= 25) {
           appropriateDose = 25
         } else {
+          setResult({ error: 'Diclofenaco es adecuado solo para pesos de 8-25 kg' })
           return
         }
         
         // Check if selected medication matches the appropriate dose
         if (selectedMedication.concentration !== appropriateDose) {
+          setResult({ error: `Por favor seleccione Diclofenaco supositorio ${appropriateDose}mg apropiado para el peso de su hijo` })
           return
         }
         
@@ -181,7 +187,9 @@ function App({ onChangeLanguage }) {
     
     // Get all suppositories from the suppositories object
     const paracetamolSupps = suppositoriesData.paracetamol || []
+    const diclofenacSupps = suppositoriesData.diclofenac || []
     
+    const allSuppositories = [...paracetamolSupps, ...diclofenacSupps]
     
     return allSuppositories.filter(med => {
       // For paracetamol suppositories, use weight-based filtering only
@@ -199,9 +207,12 @@ function App({ onChangeLanguage }) {
         return weightNum >= minWeight && weightNum <= maxWeight
       }
       
+      // For diclofenac suppositories, use weight-based filtering with minimum age of 1 year
+      if (med.ingredient === 'Diclofenaco') {
         // Check minimum age (12 months = 1 year)
         if (ageInMonths < 12) return false
         
+        // New diclofenac calculation logic:
         // Weight 8-16 kg: 12.5mg dose
         // Weight 17-25 kg: 25mg dose
         if (weightNum >= 8 && weightNum <= 16) {
@@ -250,6 +261,7 @@ function App({ onChangeLanguage }) {
         }
       }
       
+      if (medication.ingredient === 'Diclofenaco') {
         if (ageInMonths < 12) {
           isSuppositoryUnsuitable = true
           unsuitabilityReason = 'Suitable for children over 1 year old'
@@ -735,9 +747,11 @@ function App({ onChangeLanguage }) {
                     </div>
                   </div>
                   
+                  {/* Supositorios de Diclofenaco Section - Show ALL */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                      <h3 className="text-lg font-semibold text-green-700">Supositorios de Diclofenaco</h3>
                       <Badge variant="outline" className="text-green-600">
                         Para niños mayores de 1 año
                       </Badge>
@@ -746,12 +760,16 @@ function App({ onChangeLanguage }) {
                     {/* Additional Information */}
                     <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
                       <p className="text-sm text-green-800 leading-relaxed">
+                        For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as diclofenac suppositories
                       </p>
                       <p className="text-sm text-green-700 font-medium mt-2">
+                        <strong>Note:</strong> Diclofenaco suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen syrup. Do not take them at the same time and leave 8 hours between them
                       </p>
                     </div>
                     
                     <div className="grid gap-4 md:grid-cols-2">
+                      {suppositoriesData.diclofenac.map(med => (
+                        <MedicationCard key={med.id} medication={med} category="diclofenac_supp" />
                       ))}
                     </div>
                   </div>
@@ -822,8 +840,11 @@ function App({ onChangeLanguage }) {
                           <p><strong>Peso del Niño:</strong> {result.weight} kg</p>
                           <p><strong>Frecuencia:</strong> {result.frequency}</p>
                           <p><strong>Máximo Diario:</strong> {result.maxDailyDoses} doses</p>
+                          {/* NSAIDs Warning for Ibuprofeno and Diclofenaco */}
+                          {(result.medication.ingredient === 'Ibuprofeno' || result.medication.ingredient === 'Diclofenaco') && (
                             <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded-lg">
                               <p className="text-orange-800 text-sm font-medium">
+                                Do not combine ibuprofen syrup and diclofenac suppositories at the same time; leave 8 hours between them
                               </p>
                             </div>
                           )}
@@ -964,12 +985,14 @@ function App({ onChangeLanguage }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Flame className="h-5 w-5 text-red-600" />
+                          <span className="text-lg font-semibold">Ibuprofeno & Diclofenaco "NSAIDs" Family</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         <Tabs defaultValue="ibuprofen" className="w-full">
                           <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="ibuprofen">Ibuprofeno</TabsTrigger>
+                            <TabsTrigger value="diclofenac">Diclofenaco</TabsTrigger>
                           </TabsList>
                           
                           <TabsContent value="ibuprofen" className="space-y-4">
@@ -990,6 +1013,7 @@ function App({ onChangeLanguage }) {
                             </div>
                           </TabsContent>
                           
+                          <TabsContent value="diclofenac" className="space-y-4">
                             <div className="bg-purple-50 p-4 rounded-lg">
                               <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
                                 <Users className="h-4 w-4" />
@@ -1075,11 +1099,14 @@ function App({ onChangeLanguage }) {
                                 </div>
                                 <div className="flex justify-between">
                                   <span className="font-medium text-gray-700">Advertencia Importante:</span>
+                                  <span className="text-red-700">Do not combine with Diclofenaco</span>
                                 </div>
                               </div>
                             </div>
 
+                            {/* Diclofenaco Card */}
                             <div className="bg-white border-2 border-red-200 rounded-lg p-3">
+                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Diclofenaco</h5>
                               <p className="text-center text-xs text-red-500 mb-2">NSAIDs</p>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1118,6 +1145,7 @@ function App({ onChangeLanguage }) {
                                     <div className="text-xs text-red-500 mt-1">NSAIDs</div>
                                   </th>
                                   <th className="text-center p-3 font-semibold text-red-700 whitespace-nowrap">
+                                    Diclofenaco
                                     <div className="text-xs text-red-500 mt-1">NSAIDs</div>
                                   </th>
                                 </tr>
@@ -1150,6 +1178,7 @@ function App({ onChangeLanguage }) {
                                 <tr>
                                   <td className="p-3 font-medium whitespace-nowrap">Important Warning</td>
                                   <td className="p-3 text-center text-blue-700">-</td>
+                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Diclofenaco</td>
                                   <td className="p-3 text-center text-red-700 text-xs">Do not combine with Ibuprofeno</td>
                                 </tr>
                               </tbody>
@@ -1185,12 +1214,14 @@ function App({ onChangeLanguage }) {
                             <span className="text-blue-600 font-bold text-xs md:text-sm">1</span>
                           </div>
                           <span className="text-blue-800 font-semibold text-sm md:text-lg">
+                            What is the difference between paracetamol medications and (ibuprofen and diclofenac) medications?
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="bg-blue-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <p className="text-blue-800 text-sm md:text-base">
+                            Both are fever reducers and pain relievers. However, (ibuprofen and diclofenac) are considered stronger in reducing fever and pain than the paracetamol family.
                           </p>
                         </div>
                       </AccordionContent>
@@ -1204,6 +1235,7 @@ function App({ onChangeLanguage }) {
                             <span className="text-green-600 font-bold text-sm">2</span>
                           </div>
                           <span className="text-green-800 font-semibold text-sm md:text-lg">
+                            Is there an interaction between paracetamol and (ibuprofen and diclofenac) medications?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1235,6 +1267,7 @@ function App({ onChangeLanguage }) {
                               <strong className="text-red-600">Do not combine medications containing Paracetamol</strong> at the same time - there must be 4-6 hours between them.
                             </p>
                             <p>
+                              <strong className="text-red-600">And do not combine medications containing Ibuprofeno (Brufen) or Diclofenaco</strong> at the same time - there must be 8 hours between them.
                             </p>
                           </div>
                         </div>
