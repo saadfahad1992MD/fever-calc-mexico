@@ -986,14 +986,14 @@ function AppEnglish({ onChangeLanguage }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Flame className="h-5 w-5 text-red-600" />
-                          <span className="text-lg font-semibold">Ibuprofen & Diclofenac "NSAIDs" Family</span>
+                          <span className="text-lg font-semibold">Ibuprofen "NSAIDs" Family</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         <Tabs defaultValue="ibuprofen" className="w-full">
                           <TabsList className="grid w-full grid-cols-2">
                             <TabsTrigger value="ibuprofen">Ibuprofen</TabsTrigger>
-                            <TabsTrigger value="diclofenac">Diclofenac</TabsTrigger>
+                            
                           </TabsList>
                           
                           <TabsContent value="ibuprofen" className="space-y-4">
@@ -1014,22 +1014,7 @@ function AppEnglish({ onChangeLanguage }) {
                             </div>
                           </TabsContent>
                           
-                          <TabsContent value="diclofenac" className="space-y-4">
-                            <div className="bg-purple-50 p-4 rounded-lg">
-                              <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
-                                <Users className="h-4 w-4" />
-                                Popular Brand Names
-                              </h4>
-                              <div className="text-purple-800 text-sm mb-3">
-                                Available forms: <strong>suppositories</strong>
-                              </div>
-                              <div className="grid gap-2 text-purple-800 text-sm">
-                                <div>• Voltaren - Voltaren</div>
-                                <div>• Rofenac - Rofenac</div>
-                                <div>• Diclofen</div>
-                              </div>
-                            </div>
-                          </TabsContent>
+                          
                         </Tabs>
                       </AccordionContent>
                     </AccordionItem>
@@ -1100,7 +1085,7 @@ function AppEnglish({ onChangeLanguage }) {
                                 </div>
                                 <div className="flex justify-between">
                                   <span className="font-medium text-gray-700">Important Warning:</span>
-                                  <span className="text-red-700">Do not combine with Diclofenac</span>
+                                  <span className="text-red-700"></span>
                                 </div>
                               </div>
                             </div>
@@ -1179,7 +1164,7 @@ function AppEnglish({ onChangeLanguage }) {
                                 <tr>
                                   <td className="p-3 font-medium whitespace-nowrap">Important Warning</td>
                                   <td className="p-3 text-center text-blue-700">-</td>
-                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Diclofenac</td>
+                                  <td className="p-3 text-center text-red-700 text-xs"></td>
                                   <td className="p-3 text-center text-red-700 text-xs">Do not combine with Ibuprofen</td>
                                 </tr>
                               </tbody>
@@ -1215,14 +1200,14 @@ function AppEnglish({ onChangeLanguage }) {
                             <span className="text-blue-600 font-bold text-xs md:text-sm">1</span>
                           </div>
                           <span className="text-blue-800 font-semibold text-sm md:text-lg">
-                            What is the difference between paracetamol medications and (ibuprofen and diclofenac) medications?
+                            What is the difference between paracetamol medications and ibuprofen medications?
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="bg-blue-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <p className="text-blue-800 text-sm md:text-base">
-                            Both are fever reducers and pain relievers. However, (ibuprofen and diclofenac) are considered stronger in reducing fever and pain than the paracetamol family.
+                            Both are fever reducers and pain relievers. However, ibuprofen are considered stronger in reducing fever and pain than the paracetamol family.
                           </p>
                         </div>
                       </AccordionContent>
@@ -1236,7 +1221,7 @@ function AppEnglish({ onChangeLanguage }) {
                             <span className="text-green-600 font-bold text-sm">2</span>
                           </div>
                           <span className="text-green-800 font-semibold text-sm md:text-lg">
-                            Is there an interaction between paracetamol and (ibuprofen and diclofenac) medications?
+                            Is there an interaction between paracetamol and ibuprofen medications?
                           </span>
                         </div>
                       </AccordionTrigger>
