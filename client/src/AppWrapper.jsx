@@ -4,8 +4,8 @@ import AppEnglish from './AppEnglish.jsx'
 import { LanguageSelector } from './LanguageSelector.jsx'
 
 export function AppWrapper() {
-  // Default to Indonesian for Indonesia version
-  const [language, setLanguage] = useState('id')
+  // Default to Spanish for Mexico version
+  const [language, setLanguage] = useState('es')
 
   // Check if language was previously selected
   useEffect(() => {
@@ -15,7 +15,7 @@ export function AppWrapper() {
     }
     // Both Indonesian and English are LTR (Left-to-Right)
     document.documentElement.dir = 'ltr'
-    document.documentElement.lang = savedLanguage || 'id'
+    document.documentElement.lang = savedLanguage || 'es'
   }, [])
 
   const handleSelectLanguage = (lang) => {
@@ -27,8 +27,8 @@ export function AppWrapper() {
   }
 
   const handleChangeLanguage = () => {
-    // Toggle between Indonesian and English
-    const newLanguage = language === 'id' ? 'en' : 'id'
+    // Toggle between Spanish and English
+    const newLanguage = language === 'es' ? 'en' : 'es'
     setLanguage(newLanguage)
     localStorage.setItem('selectedLanguage', newLanguage)
     // Both Indonesian and English are LTR
@@ -36,7 +36,7 @@ export function AppWrapper() {
     document.documentElement.lang = newLanguage
   }
 
-  // Indonesian is default, English is alternative
+  // Spanish is default, English is alternative
   if (language === 'en') {
     return <AppEnglish onChangeLanguage={handleChangeLanguage} />
   }

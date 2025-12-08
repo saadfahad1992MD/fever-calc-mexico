@@ -13,22 +13,22 @@ export function LanguageSelector({ onSelectLanguage }) {
             </div>
           </div>
           <CardTitle className="text-3xl font-bold text-gray-900 mb-2">
-            حاسبة الحرارة
+            Calculadora de Fiebre
           </CardTitle>
           <CardTitle className="text-3xl font-bold text-gray-900 mb-4">
             Fever Calculator
           </CardTitle>
           <CardDescription className="text-lg">
-            اختر لغتك / Choose Your Language
+            Elige tu idioma / Choose Your Language
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <Button
-            onClick={() => onSelectLanguage('ar')}
+            onClick={() => onSelectLanguage('es')}
             className="w-full h-16 text-xl font-bold bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600 text-white shadow-lg"
           >
-            <span className="text-2xl mr-3">🇸🇦</span>
-            العربية
+            <span className="text-2xl mr-3">🇲🇽</span>
+            Español
           </Button>
           <Button
             onClick={() => onSelectLanguage('en')}
