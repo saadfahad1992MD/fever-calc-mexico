@@ -502,14 +502,14 @@ function App({ onChangeLanguage }) {
                             // 1-12 months
                             Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
                               <SelectItem key={month} value={month.toString()}>
-                                {month} {month === 1 ? 'month' : 'meses'}
+                                {month} {month === 1 ? 'mes' : 'meses'}
                               </SelectItem>
                             ))
                           ) : (
                             // 1-14 years
                             Array.from({ length: 14 }, (_, i) => i + 1).map(year => (
                               <SelectItem key={year} value={year.toString()}>
-                                {year} {year === 1 ? 'year' : 'años'}
+                                {year} {year === 1 ? 'año' : 'años'}
                               </SelectItem>
                             ))
                           )}
