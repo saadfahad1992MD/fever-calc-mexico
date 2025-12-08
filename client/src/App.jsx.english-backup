@@ -23,14 +23,14 @@ const suppositories = medicationsMexico.suppositories;
 function App({ onChangeLanguage }) {
   const [weight, setWeight] = useState('') // String for text input
   const [age, setAge] = useState('') // String for text input
-  const [ageUnit, setAgeUnit] = useState('') // 'meses' or 'años' - empty by default
-  const [ageCategory, setAgeCategory] = useState('') // 'bebé' (under 1) or 'niño' (1+)
+  const [ageUnit, setAgeUnit] = useState('') // 'months' or 'years' - empty by default
+  const [ageCategory, setAgeCategory] = useState('') // 'infant' (under 1) or 'child' (1+)
   const [selectedMedication, setSelectedMedication] = useState(null)
   const [result, setResult] = useState(null)
   const [activeTab, setActiveTab] = useState('calculator')
   const [enlargedImage, setEnlargedImage] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [medicationType, setMedicationType] = useState('jarabe') // 'jarabe' or 'supositorio'
+  const [medicationType, setMedicationType] = useState('syrup') // 'syrup' or 'suppository'
 
   // Select medications based on country
   const medicationsData = country === 'PH' ? medicationsPhilippines : medications
@@ -62,12 +62,12 @@ function App({ onChangeLanguage }) {
     const ageNum = parseFloat(ageStr)
     
     if (weightNum <= 0 || weightNum > 100) {
-      setResult({ error: 'Por favor ingrese un peso válido (1-100 kg)' })
+      setResult({ error: 'Please enter a valid weight (1-100 kg)' })
       return
     }
 
     // Convert age to months if needed
-    const ageInMonths = ageUnit === 'años' ? ageNum * 12 : ageNum
+    const ageInMonths = ageUnit === 'years' ? ageNum * 12 : ageNum
 
     let dosagePerKg
     let frequency
@@ -76,40 +76,40 @@ function App({ onChangeLanguage }) {
 
     if (selectedMedication.ingredient === 'Paracetamol') {
       dosagePerKg = 15 // 10-15mg/kg per dose
-      frequency = 'Cada 4-6 horas'
+      frequency = 'Every 4-6 hours'
       maxDailyDoses = 5
       maxSingleDose = 500 // Maximum 500mg per dose
-    } else if (selectedMedication.ingredient === 'Ibuprofeno') {
+    } else if (selectedMedication.ingredient === 'Ibuprofen') {
       dosagePerKg = 10 // 5-10mg/kg per dose
-      frequency = 'Cada 6-8 horas'
+      frequency = 'Every 6-8 hours'
       maxDailyDoses = 3
       maxSingleDose = 400 // Maximum 400mg per dose
-    } else if (selectedMedication.ingredient === 'Diclofenaco') {
+    } else if (selectedMedication.ingredient === 'Diclofenac') {
       // New diclofenac calculation logic based on weight ranges
-      frequency = 'Cada 8-12 horas'
+      frequency = 'Every 8-12 hours'
       maxDailyDoses = 2
       
       // Check age requirement (minimum 1 year)
       if (ageInMonths < 12) {
-        setResult({ error: 'Diclofenaco es adecuado para niños de un año en adelante' })
+        setResult({ error: 'Diclofenac is suitable for children aged one year and above' })
         return
       }
       
       // Weight-based dosing for diclofenac suppositories
-      if (selectedMedication.form === 'supositorio') {
+      if (selectedMedication.form === 'suppository') {
         let appropriateDose = 0
         if (weightNum >= 8 && weightNum <= 16) {
           appropriateDose = 12.5
         } else if (weightNum >= 17 && weightNum <= 25) {
           appropriateDose = 25
         } else {
-          setResult({ error: 'Diclofenaco es adecuado solo para pesos de 8-25 kg' })
+          setResult({ error: 'Diclofenac is suitable for weights 8-25 kg only' })
           return
         }
         
         // Check if selected medication matches the appropriate dose
         if (selectedMedication.concentration !== appropriateDose) {
-          setResult({ error: `Por favor seleccione Diclofenaco supositorio ${appropriateDose}mg apropiado para el peso de su hijo` })
+          setResult({ error: `Please select Diclofenac suppository ${appropriateDose}mg appropriate for your child's weight` })
           return
         }
         
@@ -133,8 +133,8 @@ function App({ onChangeLanguage }) {
       totalDoseMg = maxSingleDose
     }
 
-    if (selectedMedication.form === 'supositorio') {
-      // For suppositories, always show one supositorio
+    if (selectedMedication.form === 'suppository') {
+      // For suppositories, always show one suppository
       setResult({
         medication: selectedMedication,
         weight: weightNum,
@@ -208,7 +208,7 @@ function App({ onChangeLanguage }) {
       }
       
       // For diclofenac suppositories, use weight-based filtering with minimum age of 1 year
-      if (med.ingredient === 'Diclofenaco') {
+      if (med.ingredient === 'Diclofenac') {
         // Check minimum age (12 months = 1 year)
         if (ageInMonths < 12) return false
         
@@ -230,20 +230,20 @@ function App({ onChangeLanguage }) {
   }
 
   const MedicationCard = ({ medication, category }) => {
-    // Check if medication is Ibuprofeno and age is under 6 months
-    const isIbuprofeno = medication.ingredient === 'Ibuprofeno'
-    const ageInMonths = ageUnit === 'años' ? parseFloat(age) * 12 : parseFloat(age)
+    // Check if medication is Ibuprofen and age is under 6 months
+    const isIbuprofen = medication.ingredient === 'Ibuprofen'
+    const ageInMonths = ageUnit === 'years' ? parseFloat(age) * 12 : parseFloat(age)
     const isUnder6Months = age && ageUnit && ageInMonths < 6
     
     // Check if medication is Adol Drops and age is 2 years or above
     const isAdolDrops = medication.id === 'adol_drops'
-    const is2YearsOrAbove = age && ageUnit === 'años' && parseFloat(age) >= 2
+    const is2YearsOrAbove = age && ageUnit === 'years' && parseFloat(age) >= 2
     
-    // Check if supositorio is suitable for current age/weight
+    // Check if suppository is suitable for current age/weight
     let isSuppositoryUnsuitable = false
     let unsuitabilityReason = ''
     
-    if (medication.form === 'supositorio' && age && ageUnit && weight) {
+    if (medication.form === 'suppository' && age && ageUnit && weight) {
       const weightNum = parseFloat(weight)
       
       if (medication.ingredient === 'Paracetamol') {
@@ -261,7 +261,7 @@ function App({ onChangeLanguage }) {
         }
       }
       
-      if (medication.ingredient === 'Diclofenaco') {
+      if (medication.ingredient === 'Diclofenac') {
         if (ageInMonths < 12) {
           isSuppositoryUnsuitable = true
           unsuitabilityReason = 'Suitable for children over 1 year old'
@@ -293,7 +293,7 @@ function App({ onChangeLanguage }) {
       }
     }
     
-    const isDisabled = (isIbuprofeno && isUnder6Months) || isSuppositoryUnsuitable || (isAdolDrops && is2YearsOrAbove)
+    const isDisabled = (isIbuprofen && isUnder6Months) || isSuppositoryUnsuitable || (isAdolDrops && is2YearsOrAbove)
 
     const handleClick = () => {
       // Check if age and weight are entered
@@ -303,12 +303,12 @@ function App({ onChangeLanguage }) {
       }
       
       if (isSuppositoryUnsuitable) {
-        alert(`⚠️ Warning: This supositorio is not suitable for your child\n${unsuitabilityReason}`)
+        alert(`⚠️ Warning: This suppository is not suitable for your child\n${unsuitabilityReason}`)
         return
       }
       
-      if (isIbuprofeno && isUnder6Months) {
-        alert('⚠️ Warning: Ibuprofeno medications are suitable for children 6 months and older only')
+      if (isIbuprofen && isUnder6Months) {
+        alert('⚠️ Warning: Ibuprofen medications are suitable for children 6 months and older only')
         return
       }
       
@@ -369,7 +369,7 @@ function App({ onChangeLanguage }) {
             <div className="text-sm text-gray-500">
               <span>Concentration: </span>
               <span className="font-bold text-blue-600" dir="ltr">
-                {medication.form === 'supositorio' 
+                {medication.form === 'suppository' 
                   ? `${medication.concentration}mg`
                   : `${medication.concentration}mg/${medication.volume}ml`
                 }
@@ -381,7 +381,7 @@ function App({ onChangeLanguage }) {
                 {medication.ageRestriction}
               </p>
             )}
-            {(isIbuprofeno && isUnder6Months) && (
+            {(isIbuprofen && isUnder6Months) && (
               <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
                 ⚠️ For 6 months and older
               </p>
@@ -539,11 +539,11 @@ function App({ onChangeLanguage }) {
                     <div className="grid grid-cols-2 gap-3">
                       <Button
                         type="button"
-                        variant={ageCategory === 'bebé' ? 'default' : 'outline'}
+                        variant={ageCategory === 'infant' ? 'default' : 'outline'}
                         className="h-20 text-base"
                         onClick={() => {
-                          setAgeCategory('bebé')
-                          setAgeUnit('meses')
+                          setAgeCategory('infant')
+                          setAgeUnit('months')
                           setAge('')
                         }}
                       >
@@ -555,11 +555,11 @@ function App({ onChangeLanguage }) {
                       </Button>
                       <Button
                         type="button"
-                        variant={ageCategory === 'niño' ? 'default' : 'outline'}
+                        variant={ageCategory === 'child' ? 'default' : 'outline'}
                         className="h-20 text-base"
                         onClick={() => {
-                          setAgeCategory('niño')
-                          setAgeUnit('años')
+                          setAgeCategory('child')
+                          setAgeUnit('years')
                           setAge('')
                         }}
                       >
@@ -576,25 +576,25 @@ function App({ onChangeLanguage }) {
                   {ageCategory && (
                     <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
                       <label className="text-sm font-medium">
-                        {ageCategory === 'bebé' ? 'Select age in months' : 'Select age in years'}
+                        {ageCategory === 'infant' ? 'Select age in months' : 'Select age in years'}
                       </label>
                       <Select value={age} onValueChange={setAge}>
                         <SelectTrigger className="text-lg">
-                          <SelectValue placeholder={ageCategory === 'bebé' ? 'Select months' : 'Select years'} />
+                          <SelectValue placeholder={ageCategory === 'infant' ? 'Select months' : 'Select years'} />
                         </SelectTrigger>
                         <SelectContent>
-                          {ageCategory === 'bebé' ? (
+                          {ageCategory === 'infant' ? (
                             // 1-12 months
                             Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
                               <SelectItem key={month} value={month.toString()}>
-                                {month} {month === 1 ? 'month' : 'meses'}
+                                {month} {month === 1 ? 'month' : 'months'}
                               </SelectItem>
                             ))
                           ) : (
                             // 1-14 years
                             Array.from({ length: 14 }, (_, i) => i + 1).map(year => (
                               <SelectItem key={year} value={year.toString()}>
-                                {year} {year === 1 ? 'year' : 'años'}
+                                {year} {year === 1 ? 'year' : 'years'}
                               </SelectItem>
                             ))
                           )}
@@ -612,7 +612,7 @@ function App({ onChangeLanguage }) {
                           <SelectValue placeholder="Select weight" />
                         </SelectTrigger>
                         <SelectContent>
-                          {ageCategory === 'bebé' ? (
+                          {ageCategory === 'infant' ? (
                             // Infant (< 1 year): 3-16 kg, every 0.5 kg
                             Array.from({ length: 27 }, (_, i) => 3 + (i * 0.5)).map(w => (
                               <SelectItem key={w} value={w.toString()}>
@@ -658,8 +658,8 @@ function App({ onChangeLanguage }) {
                 {/* Medication Type Selection */}
                 <div className="flex gap-4 justify-center">
                   <Button
-                    variant={medicationType === 'jarabe' ? 'default' : 'outline'}
-                    onClick={() => changeMedicationType('jarabe')}
+                    variant={medicationType === 'syrup' ? 'default' : 'outline'}
+                    onClick={() => changeMedicationType('syrup')}
                     className="flex items-center gap-2 px-6 py-3"
                   >
                     <span>💧</span>
@@ -668,8 +668,8 @@ function App({ onChangeLanguage }) {
                   {/* Hide suppositories for Philippines - not available there */}
                   {country !== 'PH' && (
                     <Button
-                      variant={medicationType === 'supositorio' ? 'default' : 'outline'}
-                      onClick={() => changeMedicationType('supositorio')}
+                      variant={medicationType === 'suppository' ? 'default' : 'outline'}
+                      onClick={() => changeMedicationType('suppository')}
                       className="flex items-center gap-2 px-6 py-3"
                     >
                       <span>💊</span>
@@ -679,7 +679,7 @@ function App({ onChangeLanguage }) {
                 </div>
               </div>
 
-              {medicationType === 'jarabe' && (
+              {medicationType === 'syrup' && (
                 <>
                   {/* Paracetamol Section */}
                   <div>
@@ -703,11 +703,11 @@ function App({ onChangeLanguage }) {
                     </div>
                   </div>
 
-                  {/* Ibuprofeno Section */}
+                  {/* Ibuprofen Section */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                      <h3 className="text-lg font-semibold text-green-700">Ibuprofeno Medications</h3>
+                      <h3 className="text-lg font-semibold text-green-700">Ibuprofen Medications</h3>
                       <Badge variant="outline" className="text-green-600">
                         Age over 6 months
                       </Badge>
@@ -719,7 +719,7 @@ function App({ onChangeLanguage }) {
                         For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as ibuprofen, alternating with paracetamol every 4 hours if necessary
                       </p>
                       <p className="text-sm text-green-700 font-medium mt-2">
-                        <strong>Note:</strong> Ibuprofeno does not interact with paracetamol and can be taken at the same time
+                        <strong>Note:</strong> Ibuprofen does not interact with paracetamol and can be taken at the same time
                       </p>
                     </div>
                     
@@ -732,7 +732,7 @@ function App({ onChangeLanguage }) {
                 </>
               )}
 
-              {medicationType === 'supositorio' && (
+              {medicationType === 'suppository' && (
                 <>
                   {/* Paracetamol Suppositories Section - Show ALL */}
                   <div>
@@ -747,11 +747,11 @@ function App({ onChangeLanguage }) {
                     </div>
                   </div>
                   
-                  {/* Diclofenaco Suppositories Section - Show ALL */}
+                  {/* Diclofenac Suppositories Section - Show ALL */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                      <h3 className="text-lg font-semibold text-green-700">Diclofenaco Suppositories</h3>
+                      <h3 className="text-lg font-semibold text-green-700">Diclofenac Suppositories</h3>
                       <Badge variant="outline" className="text-green-600">
                         For children over 1 year
                       </Badge>
@@ -763,7 +763,7 @@ function App({ onChangeLanguage }) {
                         For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as diclofenac suppositories
                       </p>
                       <p className="text-sm text-green-700 font-medium mt-2">
-                        <strong>Note:</strong> Diclofenaco suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen syrup. Do not take them at the same time and leave 8 hours between them
+                        <strong>Note:</strong> Diclofenac suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen syrup. Do not take them at the same time and leave 8 hours between them
                       </p>
                     </div>
                     
@@ -829,7 +829,7 @@ function App({ onChangeLanguage }) {
                         <div className="grid gap-2 text-sm">
                           {result.isSuppository ? (
                             <p className="text-lg font-bold text-green-700">
-                              <strong>Number of Suppositories:</strong> {result.suppositories} supositorio
+                              <strong>Number of Suppositories:</strong> {result.suppositories} suppository
                             </p>
                           ) : (
                             <p className="text-lg font-bold text-green-700">
@@ -840,8 +840,8 @@ function App({ onChangeLanguage }) {
                           <p><strong>Child's Weight:</strong> {result.weight} kg</p>
                           <p><strong>Frequency:</strong> {result.frequency}</p>
                           <p><strong>Maximum Daily:</strong> {result.maxDailyDoses} doses</p>
-                          {/* NSAIDs Warning for Ibuprofeno and Diclofenaco */}
-                          {(result.medication.ingredient === 'Ibuprofeno' || result.medication.ingredient === 'Diclofenaco') && (
+                          {/* NSAIDs Warning for Ibuprofen and Diclofenac */}
+                          {(result.medication.ingredient === 'Ibuprofen' || result.medication.ingredient === 'Diclofenac') && (
                             <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded-lg">
                               <p className="text-orange-800 text-sm font-medium">
                                 Do not combine ibuprofen syrup and diclofenac suppositories at the same time; leave 8 hours between them
@@ -900,8 +900,8 @@ function App({ onChangeLanguage }) {
                               {(() => {
                                 const ageValue = convertArabicToEnglish(age)
                                 const ageNum = parseFloat(ageValue)
-                                const ageInMonths = ageUnit === 'años' ? ageNum * 12 : ageNum
-                                return ageUnit === 'meses' && ageInMonths === 1 && (
+                                const ageInMonths = ageUnit === 'years' ? ageNum * 12 : ageNum
+                                return ageUnit === 'months' && ageInMonths === 1 && (
                                   <li>For infants under one month with fever, it's best not to give fever reducers and go to the hospital for examination.</li>
                                 )
                               })()}
@@ -985,14 +985,14 @@ function App({ onChangeLanguage }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Flame className="h-5 w-5 text-red-600" />
-                          <span className="text-lg font-semibold">Ibuprofeno & Diclofenaco "NSAIDs" Family</span>
+                          <span className="text-lg font-semibold">Ibuprofen & Diclofenac "NSAIDs" Family</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         <Tabs defaultValue="ibuprofen" className="w-full">
                           <TabsList className="grid w-full grid-cols-2">
-                            <TabsTrigger value="ibuprofen">Ibuprofeno</TabsTrigger>
-                            <TabsTrigger value="diclofenac">Diclofenaco</TabsTrigger>
+                            <TabsTrigger value="ibuprofen">Ibuprofen</TabsTrigger>
+                            <TabsTrigger value="diclofenac">Diclofenac</TabsTrigger>
                           </TabsList>
                           
                           <TabsContent value="ibuprofen" className="space-y-4">
@@ -1076,9 +1076,9 @@ function App({ onChangeLanguage }) {
                               </div>
                             </div>
 
-                            {/* Ibuprofeno Card */}
+                            {/* Ibuprofen Card */}
                             <div className="bg-white border-2 border-red-200 rounded-lg p-3">
-                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Ibuprofeno</h5>
+                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Ibuprofen</h5>
                               <p className="text-center text-xs text-red-500 mb-2">NSAIDs</p>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1099,14 +1099,14 @@ function App({ onChangeLanguage }) {
                                 </div>
                                 <div className="flex justify-between">
                                   <span className="font-medium text-gray-700">Important Warning:</span>
-                                  <span className="text-red-700">Do not combine with Diclofenaco</span>
+                                  <span className="text-red-700">Do not combine with Diclofenac</span>
                                 </div>
                               </div>
                             </div>
 
-                            {/* Diclofenaco Card */}
+                            {/* Diclofenac Card */}
                             <div className="bg-white border-2 border-red-200 rounded-lg p-3">
-                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Diclofenaco</h5>
+                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Diclofenac</h5>
                               <p className="text-center text-xs text-red-500 mb-2">NSAIDs</p>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1127,7 +1127,7 @@ function App({ onChangeLanguage }) {
                                 </div>
                                 <div className="flex justify-between">
                                   <span className="font-medium text-gray-700">Important Warning:</span>
-                                  <span className="text-red-700">Do not combine with Ibuprofeno</span>
+                                  <span className="text-red-700">Do not combine with Ibuprofen</span>
                                 </div>
                               </div>
                             </div>
@@ -1141,11 +1141,11 @@ function App({ onChangeLanguage }) {
                                   <th className="text-right p-3 font-semibold whitespace-nowrap">Property</th>
                                   <th className="text-center p-3 font-semibold text-blue-700 whitespace-nowrap">Paracetamol</th>
                                   <th className="text-center p-3 font-semibold text-red-700 whitespace-nowrap">
-                                    Ibuprofeno
+                                    Ibuprofen
                                     <div className="text-xs text-red-500 mt-1">NSAIDs</div>
                                   </th>
                                   <th className="text-center p-3 font-semibold text-red-700 whitespace-nowrap">
-                                    Diclofenaco
+                                    Diclofenac
                                     <div className="text-xs text-red-500 mt-1">NSAIDs</div>
                                   </th>
                                 </tr>
@@ -1178,8 +1178,8 @@ function App({ onChangeLanguage }) {
                                 <tr>
                                   <td className="p-3 font-medium whitespace-nowrap">Important Warning</td>
                                   <td className="p-3 text-center text-blue-700">-</td>
-                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Diclofenaco</td>
-                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Ibuprofeno</td>
+                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Diclofenac</td>
+                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Ibuprofen</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -1267,7 +1267,7 @@ function App({ onChangeLanguage }) {
                               <strong className="text-red-600">Do not combine medications containing Paracetamol</strong> at the same time - there must be 4-6 hours between them.
                             </p>
                             <p>
-                              <strong className="text-red-600">And do not combine medications containing Ibuprofeno (Brufen) or Diclofenaco</strong> at the same time - there must be 8 hours between them.
+                              <strong className="text-red-600">And do not combine medications containing Ibuprofen (Brufen) or Diclofenac</strong> at the same time - there must be 8 hours between them.
                             </p>
                           </div>
                         </div>
@@ -1293,7 +1293,7 @@ function App({ onChangeLanguage }) {
                               <strong className="text-blue-600">Paracetamol medications</strong> can be taken on an empty stomach.
                             </p>
                             <p>
-                              <strong className="text-red-600">Ibuprofeno (Brufen) medications</strong> are preferably taken after food or a light meal.
+                              <strong className="text-red-600">Ibuprofen (Brufen) medications</strong> are preferably taken after food or a light meal.
                             </p>
                           </div>
                         </div>
@@ -1406,7 +1406,7 @@ function App({ onChangeLanguage }) {
                   <h3 className="text-xl font-semibold">{enlargedImage.name}</h3>
                   <p className="text-gray-600">{enlargedImage.ingredient}</p>
                   <p className="text-gray-500">
-                    {enlargedImage.form === 'supositorio' 
+                    {enlargedImage.form === 'suppository' 
                       ? `${enlargedImage.concentration}mg`
                       : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
                     } {enlargedImage.form}

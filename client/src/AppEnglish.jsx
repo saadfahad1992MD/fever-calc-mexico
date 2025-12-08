@@ -10,283 +10,18 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.jsx'
 import { AlertTriangle, Calculator, Info, X, ZoomIn, Pill, Flame, Shield, Clock, Users, CheckCircle, Linkedin } from 'lucide-react'
 import { LanguageToggle } from './components/LanguageToggle.jsx'
-import { ShareModalEnglish } from './components/ShareModalEnglish.jsx'
 import linkedinLogo from './assets/linkedin-logo.png'
-import { medicationsMexicoEnglish } from './data/medicationsMexicoEnglish.js'
 import './App.css'
 
-// Indonesia medications use placeholder images defined in medicationsIndonesia.js
+// Import country-specific medication data
+import { medicationsMexicoEnglish } from './data/medicationsMexicoEnglish.js'
 
-// Saudi medications - replaced with Indian medications
-/*
-const medications = {
-  paracetamol: [
-    {
-      id: 'adol_drops',
-      name: 'Adol Drops',
-      ingredient: 'Paracetamol',
-      concentration: 100, // mg per ml
-      volume: 1, // ml
-      form: 'Drops',
-      image: adolDropsImg,
-      ageRestriction: '2 years and under'
-    },
-    {
-      id: 'adol_syrup',
-      name: 'Adol Syrup',
-      ingredient: 'Paracetamol',
-      concentration: 120, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: adolSyrupImg,
-      ageRestriction: ''
-    },
-    {
-      id: 'fevadol',
-      name: 'Fevadol',
-      ingredient: 'Paracetamol',
-      concentration: 160, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: fevadolImg,
-      ageRestriction: ''
-    },
-    {
-      id: 'panadol-mother-child',
-      name: 'Panadol',
-      ingredient: 'Paracetamol',
-      concentration: 120, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: panadolMotherChildImg,
-      ageRestriction: ''
-    },
-    {
-      id: 'panadol-baby',
-      name: 'Panadol',
-      ingredient: 'Paracetamol',
-      concentration: 120, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: panadolBabySuspensionImg,
-      ageRestriction: ''
-    },
-    {
-      id: 'defadol',
-      name: 'Defadol',
-      ingredient: 'Paracetamol',
-      concentration: 160, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: defadolImg,
-      ageRestriction: ''
-    },
-    {
-      id: 'panadol-children',
-      name: 'Panadol',
-      ingredient: 'Paracetamol',
-      concentration: 240, // mg per 5ml (Children's 5-12 years)
-      volume: 5, // ml
-      form: 'Syrup',
-      image: panadolImg,
-      ageRestriction: 'Suitable from 5 years old'
-    }
-  ],
-  ibuprofen: [
-    {
-      id: 'nurofen',
-      name: 'Nurofen',
-      ingredient: 'Ibuprofen',
-      concentration: 100, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: nurofenImg,
-      ageRestriction: 'Age over 6 months'
-    },
-    {
-      id: 'prof',
-      name: 'Prof',
-      ingredient: 'Ibuprofen',
-      concentration: 100, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: brufenImg,
-      ageRestriction: 'Age over 6 months'
-    },
-    {
-      id: 'profinal',
-      name: 'Profinal',
-      ingredient: 'Ibuprofen',
-      concentration: 100, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: profinalImg,
-      ageRestriction: 'Age over 6 months'
-    },
-    {
-      id: 'brufen2',
-      name: 'Brufen',
-      ingredient: 'Ibuprofen',
-      concentration: 100, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: brufen2Img,
-      ageRestriction: 'Age over 6 months'
-    },
-    {
-      id: 'sapofen',
-      name: 'Sapofen',
-      ingredient: 'Ibuprofen',
-      concentration: 100, // mg per 5ml
-      volume: 5, // ml
-      form: 'Syrup',
-      image: sapofenImg,
-      ageRestriction: 'Age over 6 months'
-    }
-  ]
-}
 
-const suppositories = {
-  paracetamol: [
-    // 100mg suppositories
-    {
-      id: 'fevadol_100_supp',
-      name: 'Fevadol 100',
-      ingredient: 'Paracetamol',
-      concentration: 100,
-      form: 'suppository',
-      image: fevadol100SuppImg,
-      ageRestriction: '6-12.9',
-      weightRange: '6-12.9 kg'
-    },
-    {
-      id: 'tylenol_100_supp',
-      name: 'Tylenol 100',
-      ingredient: 'Paracetamol',
-      concentration: 100,
-      form: 'suppository',
-      image: tylenol100SuppImg,
-      ageRestriction: '6-12.9',
-      weightRange: '6-12.9 kg'
-    },
-    // 125mg suppositories
-    {
-      id: 'adol_125_supp',
-      name: 'Adol 125',
-      ingredient: 'Paracetamol',
-      concentration: 125,
-      form: 'suppository',
-      image: adol125SuppImg,
-      ageRestriction: '6-12.9',
-      weightRange: '6-12.9 kg'
-    },
-    // 200mg suppositories
-    {
-      id: 'fevadol_200_supp',
-      name: 'Fevadol 200',
-      ingredient: 'Paracetamol',
-      concentration: 200,
-      form: 'suppository',
-      image: fevadol200SuppImg,
-      ageRestriction: '13-22',
-      weightRange: '13-22 kg'
-    },
-    {
-      id: 'tylenol_200_supp',
-      name: 'Tylenol 200',
-      ingredient: 'Paracetamol',
-      concentration: 200,
-      form: 'suppository',
-      image: tylenol200SuppImg,
-      ageRestriction: '13-22',
-      weightRange: '13-22 kg'
-    },
-    // 250mg suppositories
-    {
-      id: 'adol_250_supp',
-      name: 'Adol 250',
-      ingredient: 'Paracetamol',
-      concentration: 250,
-      form: 'suppository',
-      image: adol250SuppImg,
-      ageRestriction: '13-22',
-      weightRange: '13-22 kg'
-    },
-    // 350mg suppositories
-    {
-      id: 'fevadol_350_supp',
-      name: 'Fevadol 350',
-      ingredient: 'Paracetamol',
-      concentration: 350,
-      form: 'suppository',
-      image: fevadol350SuppImg,
-      ageRestriction: '23-35',
-      weightRange: '23-35 kg'
-    },
-    {
-      id: 'tylenol_350_supp',
-      name: 'Tylenol 350',
-      ingredient: 'Paracetamol',
-      concentration: 350,
-      form: 'suppository',
-      image: tylenol350SuppImg,
-      ageRestriction: '23-35',
-      weightRange: '23-35 kg'
-    }
-  ],
-  diclofenac: [
-    // 12.5mg suppositories
-    {
-      id: 'rofenac_12_5_supp',
-      name: 'Rofenac 12.5',
-      ingredient: 'Diclofenac',
-      concentration: 12.5,
-      form: 'suppository',
-      image: rofenac12_5SuppImg,
-      ageRestriction: '8-16',
-      weightRange: '8-16 kg'
-    },
-    {
-      id: 'voltaren_12_5_supp',
-      name: 'Voltaren 12.5',
-      ingredient: 'Diclofenac',
-      concentration: 12.5,
-      form: 'suppository',
-      image: voltaren12_5SuppImg,
-      ageRestriction: '8-16',
-      weightRange: '8-16 kg'
-    },
-    // 25mg suppositories
-    {
-      id: 'rofenac_25_supp',
-      name: 'Rofenac 25',
-      ingredient: 'Diclofenac',
-      concentration: 25,
-      form: 'suppository',
-      image: rofenac25SuppImg,
-      ageRestriction: '17-25',
-      weightRange: '17-25 kg'
-    },
-    {
-      id: 'voltaren_25_supp',
-      name: 'Voltaren 25',
-      ingredient: 'Diclofenac',
-      concentration: 25,
-      form: 'suppository',
-      image: voltaren25SuppImg,
-      ageRestriction: '17-25',
-      weightRange: '17-25 kg'
-    }
-  ]
-}
-
-*/
-
-// Use Mexico medications database (English)
+// Use Mexican medications database (English)
 const medications = { paracetamol: medicationsMexicoEnglish.paracetamol, ibuprofen: medicationsMexicoEnglish.ibuprofen };
 const suppositories = medicationsMexicoEnglish.suppositories;
 
-function AppEnglish({ onChangeLanguage }) {
+function AppEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
   const [weight, setWeight] = useState('') // String for text input
   const [age, setAge] = useState('') // String for text input
   const [ageUnit, setAgeUnit] = useState('') // 'months' or 'years' - empty by default
@@ -297,7 +32,10 @@ function AppEnglish({ onChangeLanguage }) {
   const [enlargedImage, setEnlargedImage] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [medicationType, setMedicationType] = useState('syrup') // 'syrup' or 'suppository'
-  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
+
+  // Select medications based on country
+  const medicationsData = country === 'PH' ? medicationsPhilippines : medications
+  const suppositoriesData = country === 'PH' ? medicationsPhilippines.suppositories : suppositories
 
   // Function to convert Arabic numerals to English numerals
   const convertArabicToEnglish = (str) => {
@@ -449,8 +187,8 @@ function AppEnglish({ onChangeLanguage }) {
     if (!weightNum) return []
     
     // Get all suppositories from the suppositories object
-    const paracetamolSupps = suppositories.paracetamol || []
-    const diclofenacSupps = suppositories.diclofenac || []
+    const paracetamolSupps = suppositoriesData.paracetamol || []
+    const diclofenacSupps = suppositoriesData.diclofenac || []
     
     const allSuppositories = [...paracetamolSupps, ...diclofenacSupps]
     
@@ -724,22 +462,13 @@ function AppEnglish({ onChangeLanguage }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <LanguageToggle currentLanguage="en" targetLanguage="id" onToggle={onChangeLanguage} />
+      {/* Hide language toggle for Philippines - English only until Tagalog translation is ready */}
+      {country !== 'PH' && (
+        <LanguageToggle currentLanguage="en" targetLanguage="ar" onToggle={onChangeLanguage} />
+      )}
       {/* Top Brand Header */}
-      <div className="sticky top-0 bg-white text-gray-800 pt-12 pb-6 sm:pt-6 shadow-lg border-b-2 border-gray-100 z-40">
-        <div className="max-w-4xl mx-auto px-4 relative">
-          {/* Share Button - Fixed position on mobile to align with language toggle */}
-          <button
-            onClick={() => setIsShareModalOpen(true)}
-            className="absolute left-1 top-1 sm:relative sm:left-auto sm:top-auto flex items-center gap-2 px-3 py-2 sm:px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors duration-200 shadow-md"
-            title="Share"
-          >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
-              </svg>
-              <span className="text-sm sm:text-base">Share</span>
-          </button>
-          
+      <div className="sticky top-0 bg-white text-gray-800 py-6 shadow-lg border-b-2 border-gray-100 z-40">
+        <div className="max-w-4xl mx-auto px-4">
           <div className="flex items-center justify-center gap-4">
             {/* Icon Container */}
             <div className="bg-red-100 rounded-2xl p-3 shadow-md border border-red-200">
@@ -937,7 +666,17 @@ function AppEnglish({ onChangeLanguage }) {
                     <span>💧</span>
                     <span>Syrup</span>
                   </Button>
-                  {/* Suppositories not available in Indonesia */}
+                  {/* Hide suppositories for Philippines - not available there */}
+                  {country !== 'PH' && (
+                    <Button
+                      variant={medicationType === 'suppository' ? 'default' : 'outline'}
+                      onClick={() => changeMedicationType('suppository')}
+                      className="flex items-center gap-2 px-6 py-3"
+                    >
+                      <span>💊</span>
+                      <span>Suppositories</span>
+                    </Button>
+                  )}
                 </div>
               </div>
 
@@ -950,7 +689,7 @@ function AppEnglish({ onChangeLanguage }) {
                       <h3 className="text-lg font-semibold text-blue-700">Paracetamol medications</h3>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2">
-                      {medications.paracetamol.map(med => (
+                      {medicationsData.paracetamol.map(med => (
                         <MedicationCard key={med.id} medication={med} category="paracetamol" />
                       ))}
                     </div>
@@ -986,7 +725,7 @@ function AppEnglish({ onChangeLanguage }) {
                     </div>
                     
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {medications.ibuprofen.map(med => (
+                      {medicationsData.ibuprofen.map(med => (
                         <MedicationCard key={med.id} medication={med} category="ibuprofen" />
                       ))}
                     </div>
@@ -1003,7 +742,7 @@ function AppEnglish({ onChangeLanguage }) {
                       <h3 className="text-lg font-semibold text-blue-700">Paracetamol Suppositories</h3>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {suppositories.paracetamol.map(med => (
+                      {suppositoriesData.paracetamol.map(med => (
                         <MedicationCard key={med.id} medication={med} category="paracetamol_supp" />
                       ))}
                     </div>
@@ -1030,7 +769,7 @@ function AppEnglish({ onChangeLanguage }) {
                     </div>
                     
                     <div className="grid gap-4 md:grid-cols-2">
-                      {suppositories.diclofenac.map(med => (
+                      {suppositoriesData.diclofenac.map(med => (
                         <MedicationCard key={med.id} medication={med} category="diclofenac_supp" />
                       ))}
                     </div>
@@ -1202,7 +941,7 @@ function AppEnglish({ onChangeLanguage }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Pill className="h-5 w-5 text-blue-600" />
-                          <span className="text-lg font-semibold">Paracetamol Family</span>
+                          <span className="text-lg font-semibold">Paracetamol Family (Acetaminophen)</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
@@ -1288,7 +1027,6 @@ function AppEnglish({ onChangeLanguage }) {
                                 <div>• Voltaren - Voltaren</div>
                                 <div>• Rofenac - Rofenac</div>
                                 <div>• Diclofen</div>
-                                <div>• Olfen</div>
                               </div>
                             </div>
                           </TabsContent>
@@ -1719,15 +1457,12 @@ function AppEnglish({ onChangeLanguage }) {
           {/* Contact Information */}
           <div className="border-t pt-4">
             <p className="mt-1 font-medium">
-              <span className="text-black">For advertising or inquiries: </span>
+              <span className="text-black">Contact: </span>
               <span className="text-blue-600">fever.calc@gmail.com</span>
             </p>
           </div>
         </div>
       </footer>
-      
-      {/* Share Modal */}
-      <ShareModalEnglish isOpen={isShareModalOpen} onClose={() => setIsShareModalOpen(false)} />
     </div>
   )
 }
