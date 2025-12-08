@@ -7,7 +7,7 @@ export function LanguageToggle({ currentLanguage, onToggle, targetLanguage }) {
   
   if (currentLanguage === 'es') {
     // Currently Spanish -> show English option
-    flag = '🇬🇧';
+    flag = '🇺🇸';
     text = 'English';
   } else if (currentLanguage === 'en') {
     // Currently English -> show Spanish option for Mexico
