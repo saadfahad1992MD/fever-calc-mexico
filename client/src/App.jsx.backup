@@ -357,7 +357,7 @@ function App({ onChangeLanguage }) {
                 setCurrentImageIndex(0)
               }}
               className="flex items-center gap-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-md transition-colors duration-200"
-              title="Click to Enlarge"
+              title="Clic para Ampliar"
             >
               <ZoomIn className="w-3 h-3" />
               <span>Enlarge</span>
@@ -449,7 +449,7 @@ function App({ onChangeLanguage }) {
               }}
               className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200"
             >
-              <span>Calculate Dose</span>
+              <span>Calcular Dosis</span>
               <span>💊</span>
             </button>
           </div>
@@ -477,7 +477,7 @@ function App({ onChangeLanguage }) {
             {/* Text Container */}
             <div className="text-center">
               <h1 className="font-bold text-3xl tracking-wide">
-                <span className="text-red-600 text-4xl">Fever Calc</span>
+                <span className="text-red-600 text-4xl">Calculadora de Fiebre</span>
               </h1>
             </div>
           </div>
@@ -522,10 +522,10 @@ function App({ onChangeLanguage }) {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Calculator className="w-5 h-5" />
-                  Child Information
+                  Información del Niño
                 </CardTitle>
                 <CardDescription>
-                  Enter child's age and weight
+                  Ingrese edad y peso del niño
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -533,7 +533,7 @@ function App({ onChangeLanguage }) {
                   {/* Step 1: Age Category Selection */}
                   <div className="space-y-3">
                     <label className="text-sm font-medium flex items-center gap-1">
-                      How old is your child?
+                      ¿Qué edad tiene su hijo?
                       <span className="text-red-500 text-xs">*</span>
                     </label>
                     <div className="grid grid-cols-2 gap-3">
@@ -549,7 +549,7 @@ function App({ onChangeLanguage }) {
                       >
                         <div className="text-center">
                           <div className="text-2xl mb-1">👶</div>
-                          <div>Less than 1 year</div>
+                          <div>Menos de 1 año</div>
                           <div className="text-xs opacity-70">(1-12 months)</div>
                         </div>
                       </Button>
@@ -565,7 +565,7 @@ function App({ onChangeLanguage }) {
                       >
                         <div className="text-center">
                           <div className="text-2xl mb-1">🧒</div>
-                          <div>More than 1 year</div>
+                          <div>Más de 1 año</div>
                           <div className="text-xs opacity-70">(1-14 years)</div>
                         </div>
                       </Button>
@@ -653,7 +653,7 @@ function App({ onChangeLanguage }) {
             {/* Medication Selection */}
             <div className="space-y-6">
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold">Select medication form:</h2>
+                <h2 className="text-xl font-semibold">Seleccione forma de medicamento:</h2>
                 
                 {/* Medication Type Selection */}
                 <div className="flex gap-4 justify-center">
@@ -663,7 +663,7 @@ function App({ onChangeLanguage }) {
                     className="flex items-center gap-2 px-6 py-3"
                   >
                     <span>💧</span>
-                    <span>Syrup</span>
+                    <span>Jarabe</span>
                   </Button>
                   {/* Hide suppositories for Philippines - not available there */}
                   { (
@@ -673,7 +673,7 @@ function App({ onChangeLanguage }) {
                       className="flex items-center gap-2 px-6 py-3"
                     >
                       <span>💊</span>
-                      <span>Suppositories</span>
+                      <span>Supositorios</span>
                     </Button>
                   )}
                 </div>
@@ -707,9 +707,9 @@ function App({ onChangeLanguage }) {
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                      <h3 className="text-lg font-semibold text-green-700">Ibuprofeno Medications</h3>
+                      <h3 className="text-lg font-semibold text-green-700">Medicamentos de Ibuprofeno</h3>
                       <Badge variant="outline" className="text-green-600">
-                        Age over 6 months
+                        Edad mayor a 6 meses
                       </Badge>
                     </div>
                     
@@ -734,11 +734,11 @@ function App({ onChangeLanguage }) {
 
               {medicationType === 'supositorio' && (
                 <>
-                  {/* Paracetamol Suppositories Section - Show ALL */}
+                  {/* Supositorios de Paracetamol Section - Show ALL */}
                   <div>
                     <div className="flex items-center gap-2 mb-4">
                       <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
-                      <h3 className="text-lg font-semibold text-blue-700">Paracetamol Suppositories</h3>
+                      <h3 className="text-lg font-semibold text-blue-700">Supositorios de Paracetamol</h3>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                       {suppositoriesData.paracetamol.map(med => (
@@ -747,13 +747,13 @@ function App({ onChangeLanguage }) {
                     </div>
                   </div>
                   
-                  {/* Diclofenaco Suppositories Section - Show ALL */}
+                  {/* Supositorios de Diclofenaco Section - Show ALL */}
                   <div>
                     <div className="flex items-center gap-2 mb-2">
                       <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                      <h3 className="text-lg font-semibold text-green-700">Diclofenaco Suppositories</h3>
+                      <h3 className="text-lg font-semibold text-green-700">Supositorios de Diclofenaco</h3>
                       <Badge variant="outline" className="text-green-600">
-                        For children over 1 year
+                        Para niños mayores de 1 año
                       </Badge>
                     </div>
                     
@@ -785,7 +785,7 @@ function App({ onChangeLanguage }) {
                   disabled={!weight || !age || !ageUnit || !selectedMedication}
                   className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg"
                 >
-                  Calculate Dose
+                  Calcular Dosis
                 </Button>
                 <Button 
                   onClick={resetForm}
@@ -811,7 +811,7 @@ function App({ onChangeLanguage }) {
             {/* Results */}
             <Card id="results-section" className="transition-all duration-500">
               <CardHeader>
-                <CardTitle>Calculation Result</CardTitle>
+                <CardTitle>Resultado del Cálculo</CardTitle>
               </CardHeader>
               <CardContent>
                 {result ? (
@@ -825,7 +825,7 @@ function App({ onChangeLanguage }) {
                   ) : (
                     <div className="space-y-4">
                       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <h3 className="font-semibold text-green-800 mb-2">Calculated Dose:</h3>
+                        <h3 className="font-semibold text-green-800 mb-2">Dosis Calculada:</h3>
                         <div className="grid gap-2 text-sm">
                           {result.isSuppository ? (
                             <p className="text-lg font-bold text-green-700">
@@ -833,13 +833,13 @@ function App({ onChangeLanguage }) {
                             </p>
                           ) : (
                             <p className="text-lg font-bold text-green-700">
-                              <strong>Required Amount:</strong> {result.volume} ml
+                              <strong>Cantidad Requerida:</strong> {result.volume} ml
                             </p>
                           )}
-                          <p><strong>Medication:</strong> {result.medication.name}</p>
-                          <p><strong>Child's Weight:</strong> {result.weight} kg</p>
-                          <p><strong>Frequency:</strong> {result.frequency}</p>
-                          <p><strong>Maximum Daily:</strong> {result.maxDailyDoses} doses</p>
+                          <p><strong>Medicamento:</strong> {result.medication.name}</p>
+                          <p><strong>Peso del Niño:</strong> {result.weight} kg</p>
+                          <p><strong>Frecuencia:</strong> {result.frequency}</p>
+                          <p><strong>Máximo Diario:</strong> {result.maxDailyDoses} doses</p>
                           {/* NSAIDs Warning for Ibuprofeno and Diclofenaco */}
                           {(result.medication.ingredient === 'Ibuprofeno' || result.medication.ingredient === 'Diclofenaco') && (
                             <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded-lg">
@@ -851,7 +851,7 @@ function App({ onChangeLanguage }) {
                           {/* Developer Credit */}
                           <div className="mt-3 pt-3 border-t border-green-300">
                             <p className="text-xs text-gray-600 flex items-center justify-center gap-1">
-                              Developed by{' '}
+                              Desarrollado por{' '}
                               <a 
                                 href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                                 target="_blank" 
@@ -885,7 +885,7 @@ function App({ onChangeLanguage }) {
                           }}
                           className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-2 rounded-lg shadow-md transition-colors duration-200">
                           <Info className="h-4 w-4 ml-2" />
-                          For FAQs and additional explanation, click here
+                          Para preguntas frecuentes y explicación adicional, haga clic aquí
                         </Button>
                       </div>
                       
@@ -894,7 +894,7 @@ function App({ onChangeLanguage }) {
                         <Alert className="bg-orange-50 border-orange-200">
                           <AlertTriangle className="h-4 w-4 text-orange-600" />
                           <AlertDescription className="text-orange-800">
-                            <strong>Important Warning:</strong>
+                            <strong>Advertencia Importante:</strong>
                             <ul className="list-disc mt-2 space-y-1" style={{listStylePosition: 'inside', direction: 'ltr', paddingLeft: '1.5rem'}}>
                               <li>This calculator is for guidance only. Always consult a doctor before giving any medication to your child. Do not exceed the recommended dose and do not give medication for more than 3-5 days without medical consultation.</li>
                               {(() => {
@@ -913,7 +913,7 @@ function App({ onChangeLanguage }) {
                   )
                 ) : (
                   <p className="text-gray-500 text-center py-8">
-                    Enter child's age and weight and select medication to calculate dose
+                    Ingrese edad y peso del niño and select medication to calculate dose
                   </p>
                 )}
               </CardContent>
@@ -1002,7 +1002,7 @@ function App({ onChangeLanguage }) {
                                 Popular Brand Names
                               </h4>
                               <div className="text-purple-800 text-sm mb-3">
-                                Available forms: <strong>Syrup</strong>
+                                Available forms: <strong>Jarabe</strong>
                               </div>
                               <div className="grid gap-2 text-purple-800 text-sm">
                                 <div>• Nurofen - Nurofen</div>
@@ -1062,7 +1062,7 @@ function App({ onChangeLanguage }) {
                                   <span className="text-blue-700">4-6 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="font-medium text-gray-700">Máximo Diario:</span>
                                   <span className="text-blue-700">5 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1070,7 +1070,7 @@ function App({ onChangeLanguage }) {
                                   <span className="text-blue-700">Drops, Syrup, suppositories</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="font-medium text-gray-700">Advertencia Importante:</span>
                                   <span className="text-blue-700">-</span>
                                 </div>
                               </div>
@@ -1090,7 +1090,7 @@ function App({ onChangeLanguage }) {
                                   <span className="text-red-700">6-8 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="font-medium text-gray-700">Máximo Diario:</span>
                                   <span className="text-red-700">3 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1098,7 +1098,7 @@ function App({ onChangeLanguage }) {
                                   <span className="text-red-700">Mainly Syrup</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="font-medium text-gray-700">Advertencia Importante:</span>
                                   <span className="text-red-700">Do not combine with Diclofenaco</span>
                                 </div>
                               </div>
@@ -1118,7 +1118,7 @@ function App({ onChangeLanguage }) {
                                   <span className="text-red-700">8-12 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="font-medium text-gray-700">Máximo Diario:</span>
                                   <span className="text-red-700">2 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1126,7 +1126,7 @@ function App({ onChangeLanguage }) {
                                   <span className="text-red-700">Suppositories only</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="font-medium text-gray-700">Advertencia Importante:</span>
                                   <span className="text-red-700">Do not combine with Ibuprofeno</span>
                                 </div>
                               </div>
@@ -1430,7 +1430,7 @@ function App({ onChangeLanguage }) {
           <div className="mb-4 p-4 bg-gray-50 rounded-lg border">
             <div className="space-y-2">
               <p className="text-base font-semibold text-gray-800 flex items-center justify-center gap-1">
-                Developed by{' '}
+                Desarrollado por{' '}
                 <a 
                   href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                   target="_blank" 
@@ -1448,7 +1448,7 @@ function App({ onChangeLanguage }) {
                   <img src={linkedinLogo} alt="LinkedIn" className="h-4" />
                 </a>
               </p>
-              <p className="font-semibold text-gray-700">Fever Calc</p>
+              <p className="font-semibold text-gray-700">Calculadora de Fiebre</p>
               <div className="text-lg font-bold text-gray-800">© All Rights Reserved</div>
             </div>
           </div>

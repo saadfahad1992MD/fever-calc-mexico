@@ -5,41 +5,16 @@ export function LanguageToggle({ currentLanguage, onToggle, targetLanguage }) {
   // The button shows the NEXT language (what you'll switch TO)
   let flag, text;
   
-  if (currentLanguage === 'ar') {
-    // Currently Arabic -> show English option
-    flag = '🇬🇧';
-    text = 'English';
-  } else if (currentLanguage === 'hi') {
-    // Currently Hindi -> show English option
-    flag = '🇬🇧';
-    text = 'English';
-  } else if (currentLanguage === 'id') {
-    // Currently Indonesian -> show English option
+  if (currentLanguage === 'es') {
+    // Currently Spanish -> show English option
     flag = '🇬🇧';
     text = 'English';
   } else if (currentLanguage === 'en') {
-    // Currently English -> show the local language option
-    // Use targetLanguage if provided, otherwise default to Arabic
-    const target = targetLanguage || 'ar';
-    
-    if (target === 'ar') {
-      flag = '🇸🇦';
-      text = 'العربية';
-    } else if (target === 'hi') {
-      flag = '🇮🇳';
-      text = 'हिंदी';
-    } else if (target === 'id') {
-      flag = '🇮🇩';
-      text = 'Indonesian';
-    } else {
-      // Fallback to Arabic if target is unknown
-      flag = '🇸🇦';
-      text = 'العربية';
-    }
-  }
-  
-  // Fallback if flag/text are still undefined
-  if (!flag || !text) {
+    // Currently English -> show Spanish option for Mexico
+    flag = '🇲🇽';
+    text = 'Español';
+  } else {
+    // Fallback
     flag = '🇬🇧';
     text = 'English';
   }
