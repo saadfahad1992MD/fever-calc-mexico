@@ -213,22 +213,22 @@ function App({ onChangeLanguage }) {
     const handleClick = () => {
       // Check if age and weight are entered
       if (!age || !ageUnit || !weight) {
-        alert('⚠️ Please enter age and weight first')
+        alert('⚠️ Por favor ingrese edad y peso primero')
         return
       }
       
       if (isSuppositoryUnsuitable) {
-        alert(`⚠️ Warning: This supositorio is not suitable for your child\n${unsuitabilityReason}`)
+        alert(`⚠️ Advertencia: Este supositorio no es adecuado para su hijo\n${unsuitabilityReason}`)
         return
       }
       
       if (isIbuprofeno && isUnder6Months) {
-        alert('⚠️ Warning: Ibuprofeno medications are suitable for children 6 months and older only')
+        alert('⚠️ Advertencia: Los medicamentos de Ibuprofeno son adecuados solo para niños de 6 meses en adelante')
         return
       }
       
       if (isAdolGotas && is2YearsOrAbove) {
-        alert('⚠️ Warning: Adol Gotas are suitable for children under 2 years old only')
+        alert('⚠️ Advertencia: Adol Gotas son adecuadas solo para niños menores de 2 años')
         return
       }
       setSelectedMedication(medication)
@@ -298,12 +298,12 @@ function App({ onChangeLanguage }) {
             )}
             {(isIbuprofeno && isUnder6Months) && (
               <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
-                ⚠️ For 6 months and older
+                ⚠️ Para 6 meses en adelante
               </p>
             )}
             {(isAdolGotas && is2YearsOrAbove) && (
               <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
-                ⚠️ For children under 2 years
+                ⚠️ Para niños menores de 2 años
               </p>
             )}
             {isSuppositoryUnsuitable && (
@@ -729,7 +729,7 @@ function App({ onChangeLanguage }) {
                           <p><strong>Medicamento:</strong> {result.medication.name}</p>
                           <p><strong>Peso del Niño:</strong> {result.weight} kg</p>
                           <p><strong>Frecuencia:</strong> {result.frequency}</p>
-                          <p><strong>Máximo Diario:</strong> {result.maxDailyDoses} doses</p>
+                          <p><strong>Máximo Diario:</strong> {result.maxDailyDoses} dosis</p>
                           {/* NSAIDs Warning for Ibuprofeno */}
                           {result.medication.ingredient === 'Ibuprofeno' && (
                             <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded-lg">
@@ -792,7 +792,7 @@ function App({ onChangeLanguage }) {
                                 const ageNum = parseFloat(ageValue)
                                 const ageInMonths = ageUnit === 'años' ? ageNum * 12 : ageNum
                                 return ageUnit === 'meses' && ageInMonths === 1 && (
-                                  <li>For infants under one month with fever, it's best not to give fever reducers and go to the hospital for examination.</li>
+                                  <li>Para bebés menores de un mes con fiebre, es mejor no administrar reductores de fiebre e ir al hospital para examen.</li>
                                 )
                               })()}
                             </ul>
@@ -803,7 +803,7 @@ function App({ onChangeLanguage }) {
                   )
                 ) : (
                   <p className="text-gray-500 text-center py-8">
-                    Ingrese edad y peso del niño and select medication to calculate dose
+                    Ingrese edad y peso del niño y seleccione el medicamento para calcular la dosis
                   </p>
                 )}
               </CardContent>
@@ -928,8 +928,8 @@ function App({ onChangeLanguage }) {
                                   <span className="text-blue-700">5 dosis</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Available Forms:</span>
-                                  <span className="text-blue-700">Gotas, Syrup, suppositories</span>
+                                  <span className="font-medium text-gray-700">Formas Disponibles:</span>
+                                  <span className="text-blue-700">Gotas, Jarabe, Supositorios</span>
                                 </div>
                                 <div className="flex justify-between">
                                   <span className="font-medium text-gray-700">Advertencia Importante:</span>
@@ -945,7 +945,7 @@ function App({ onChangeLanguage }) {
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
                                   <span className="font-medium text-gray-700">Edad Mínima:</span>
-                                  <span className="text-red-700">6 months</span>
+                                  <span className="text-red-700">6 meses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
                                   <span className="font-medium text-gray-700">Duración del Efecto:</span>
@@ -953,11 +953,11 @@ function App({ onChangeLanguage }) {
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
                                   <span className="font-medium text-gray-700">Máximo Diario:</span>
-                                  <span className="text-red-700">3 doses</span>
+                                  <span className="text-red-700">3 dosis</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Available Forms:</span>
-                                  <span className="text-red-700">Mainly Syrup</span>
+                                  <span className="font-medium text-gray-700">Formas Disponibles:</span>
+                                  <span className="text-red-700">Principalmente Jarabe</span>
                                 </div>
 
                               </div>
@@ -994,17 +994,17 @@ function App({ onChangeLanguage }) {
                                 <tr>
                                   <td className="p-3 font-medium whitespace-nowrap">Dosis Diarias Máximas</td>
                                   <td className="p-3 text-center text-blue-700 whitespace-nowrap">5 dosis</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">3 doses</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">3 dosis</td>
                                 </tr>
                                 <tr className="bg-gray-25">
-                                  <td className="p-3 font-medium whitespace-nowrap">Available Forms</td>
-                                  <td className="p-3 text-center text-blue-700">Gotas, Syrup, suppositories</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">Mainly Syrup</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Formas Disponibles</td>
+                                  <td className="p-3 text-center text-blue-700">Gotas, Jarabe, Supositorios</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">Principalmente Jarabe</td>
                                 </tr>
                                 <tr>
-                                  <td className="p-3 font-medium whitespace-nowrap">Important Warning</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Advertencia Importante</td>
                                   <td className="p-3 text-center text-blue-700">-</td>
-                                  <td className="p-3 text-center text-red-700 text-xs">Consult doctor before combining with other medications</td>
+                                  <td className="p-3 text-center text-red-700 text-xs">Consulte al médico antes de combinar con otros medicamentos</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -1046,7 +1046,7 @@ function App({ onChangeLanguage }) {
                       <AccordionContent>
                         <div className="bg-blue-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <p className="text-blue-800 text-sm md:text-base">
-                            Both are fever reducers and pain relievers. However, ibuprofen is considered stronger in reducing fever and pain than paracetamol.
+                            Ambos son reductores de fiebre y analgésicos. Sin embargo, el ibuprofeno se considera más fuerte para reducir la fiebre y el dolor que el paracetamol.
                           </p>
                         </div>
                       </AccordionContent>
@@ -1060,14 +1060,14 @@ function App({ onChangeLanguage }) {
                             <span className="text-green-600 font-bold text-sm">2</span>
                           </div>
                           <span className="text-green-800 font-semibold text-sm md:text-lg">
-                            Is there an interaction between paracetamol and ibuprofen medications?
+                            ¿Existe interacción entre los medicamentos de paracetamol e ibuprofeno?
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="bg-green-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <p className="text-green-800">
-                            There is no interaction between them, and they can be taken at the same time, but your doctor may recommend a specific time between them, such as every 4 hours between paracetamol and ibuprofen, so you can give medications throughout the day.
+                            No existe interacción entre ellos y pueden tomarse al mismo tiempo, pero su médico puede recomendar un tiempo específico entre ellos, como cada 4 horas entre paracetamol e ibuprofeno, para que pueda administrar los medicamentos durante todo el día.
                           </p>
                         </div>
                       </AccordionContent>
@@ -1081,7 +1081,7 @@ function App({ onChangeLanguage }) {
                             <span className="text-orange-600 font-bold text-sm">3</span>
                           </div>
                           <span className="text-orange-800 font-semibold text-sm md:text-lg">
-                            Which medications should not be combined at the same time?
+                            ¿Qué medicamentos no deben combinarse al mismo tiempo?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1089,10 +1089,10 @@ function App({ onChangeLanguage }) {
                         <div className="bg-orange-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <div className="text-orange-800 space-y-2">
                             <p>
-                              <strong className="text-red-600">Do not combine medications containing Paracetamol</strong> at the same time - there must be 4-6 horas between them.
+                              <strong className="text-red-600">No combine medicamentos que contengan Paracetamol</strong> al mismo tiempo - debe haber 4-6 horas entre ellos.
                             </p>
                             <p>
-                              <strong className="text-red-600">Consult your doctor before combining different fever medications.</strong>
+                              <strong className="text-red-600">Consulte a su médico antes de combinar diferentes medicamentos para la fiebre.</strong>
                             </p>
                           </div>
                         </div>
@@ -1107,7 +1107,7 @@ function App({ onChangeLanguage }) {
                             <span className="text-teal-600 font-bold text-sm">4</span>
                           </div>
                           <span className="text-teal-800 font-semibold text-sm md:text-lg">
-                            Should medications be taken after eating or on an empty stomach?
+                            ¿Los medicamentos deben tomarse después de comer o con el estómago vacío?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1115,10 +1115,10 @@ function App({ onChangeLanguage }) {
                         <div className="bg-teal-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <div className="text-teal-800 space-y-2">
                             <p>
-                              <strong className="text-blue-600">Paracetamol medications</strong> can be taken on an empty stomach.
+                              <strong className="text-blue-600">Los medicamentos de Paracetamol</strong> pueden tomarse con el estómago vacío.
                             </p>
                             <p>
-                              <strong className="text-red-600">Ibuprofeno (Brufen) medications</strong> are preferably taken after food or a light meal.
+                              <strong className="text-red-600">Los medicamentos de Ibuprofeno (Motrin)</strong> se toman preferiblemente después de comer o con una comida ligera.
                             </p>
                           </div>
                         </div>
@@ -1134,12 +1134,12 @@ function App({ onChangeLanguage }) {
               <Alert className="bg-red-50 border-red-200">
                 <AlertTriangle className="h-4 w-4 text-red-600" />
                 <AlertDescription className="text-red-800">
-                  <strong className="block mb-2">Important Safety Warnings:</strong>
+                  <strong className="block mb-2">Advertencias Importantes de Seguridad:</strong>
                   <ul className="list-disc space-y-1 text-sm" style={{listStylePosition: 'inside', direction: 'ltr', paddingLeft: '1.5rem'}}>
-                    <li>Nunca exceda la dosis recomendada or allowed frequency</li>
-                    <li>Do not give more than one type of medication containing the same active ingredient</li>
-                    <li>Do not use medication for more than 3-5 days without medical consultation</li>
-                    <li>Ensure there is no allergy to the medication before use</li>
+                    <li>Nunca exceda la dosis recomendada o la frecuencia permitida</li>
+                    <li>No administre más de un tipo de medicamento que contenga el mismo principio activo</li>
+                    <li>No use el medicamento por más de 3-5 días sin consulta médica</li>
+                    <li>Asegúrese de que no haya alergia al medicamento antes de usarlo</li>
                     <li>Mantenga todos los medicamentos fuera del alcance de los niños</li>
                   </ul>
                 </AlertDescription>
@@ -1177,7 +1177,7 @@ function App({ onChangeLanguage }) {
                           prev === 0 ? enlargedImage.images.length - 1 : prev - 1
                         )}
                         className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 rounded-full transition-all"
-                        title="الImage السابقة"
+                        title="Imagen Anterior"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -1190,7 +1190,7 @@ function App({ onChangeLanguage }) {
                           prev === enlargedImage.images.length - 1 ? 0 : prev + 1
                         )}
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 rounded-full transition-all"
-                        title="الImage التالية"
+                        title="Imagen Siguiente"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -1309,9 +1309,9 @@ const DosageTimelineVisualizer = ({
     return (
       <div className="text-center py-8">
         <Timer className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-        <p className="text-gray-500 text-lg mb-2">لم يتم تسجيل أي doses بعد</p>
+        <p className="text-gray-500 text-lg mb-2">No se han registrado dosis aún</p>
         <p className="text-gray-400 text-sm">
-          استخدم زر "سجل الdose الآن" بعد حساب الdose لبدء التتبع
+          Use el botón "Registrar Dosis Ahora" después de calcular la dosis para comenzar el seguimiento
         </p>
       </div>
     )
@@ -1336,9 +1336,9 @@ const DosageTimelineVisualizer = ({
                   <p className="text-sm text-gray-600">{medication.ingredient}</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-sm text-gray-500">آخر dose</div>
+                  <div className="text-sm text-gray-500">Última Dosis</div>
                   <div className="text-sm font-medium">
-                    {new Date(lastDose.time).toLocaleTimeString('ar-SA', { 
+                    {new Date(lastDose.time).toLocaleTimeString('es-MX', { 
                       hour: '2-digit', 
                       minute: '2-digit' 
                     })}
@@ -1385,14 +1385,14 @@ const DosageTimelineVisualizer = ({
                   </div>
                   
                   <div className="text-sm text-gray-600">
-                    Today's Doses: {dosesIn24h}
+                    Dosis de Hoy: {dosesIn24h}
                   </div>
                   
                   {canTakeNext && (
                     <div className="mt-2">
                       <Badge className="bg-green-100 text-green-800 border-green-300">
                         <Bell className="h-3 w-3 mr-1" />
-                        Ready for Next Dose
+                        Listo para la Próxima Dosis
                       </Badge>
                     </div>
                   )}
@@ -1449,9 +1449,9 @@ const DosageTimelineVisualizer = ({
 
       {/* Current Time Display */}
       <div className="text-center py-2 bg-blue-50 rounded-lg">
-        <div className="text-sm text-blue-600">الوقت الحالي</div>
+        <div className="text-sm text-blue-600">Hora Actual</div>
         <div className="text-lg font-semibold text-blue-800">
-          {currentTime.toLocaleTimeString('ar-SA', { 
+          {currentTime.toLocaleTimeString('es-MX', { 
             hour: '2-digit', 
             minute: '2-digit',
             second: '2-digit'

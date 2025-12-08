@@ -47,7 +47,30 @@ export const medicationsMexico = {
     },
   ],
   suppositories: {
-    paracetamol: [],
+    paracetamol: [
+      {
+        id: 'tempra-supp-100',
+        name: 'Tempra Supositorio 100mg',
+        ingredient: 'Paracetamol',
+        concentration: 100, // mg per suppository
+        form: 'Supositorio',
+        image: '/medications/tempra.jpg',
+        weightRange: '3-12 kg',
+        ageRange: '1-18 meses',
+        ageRestriction: 'Para bebés y niños pequeños'
+      },
+      {
+        id: 'tempra-supp-300',
+        name: 'Tempra Supositorio 300mg',
+        ingredient: 'Paracetamol',
+        concentration: 300, // mg per suppository
+        form: 'Supositorio',
+        image: '/medications/tempra.jpg',
+        weightRange: '12-30 kg',
+        ageRange: '18 meses-12 años',
+        ageRestriction: 'Para niños mayores'
+      }
+    ],
     diclofenac: []
   }
 }
