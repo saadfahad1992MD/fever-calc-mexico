@@ -372,11 +372,10 @@ function AppEnglish({ onChangeLanguage }) {
               <span className="font-bold text-blue-600" dir="ltr">
                 {medication.form === 'suppository' 
                   ? `${medication.concentration}mg`
-                  : `${medication.concentration}mg/${medication.volume}ml`
+                  : medication.packageConcentration
+                    ? `${medication.packageConcentration} (${medication.concentration}mg/${medication.volume}ml)`
+                    : `${medication.concentration}mg/${medication.volume}ml`
                 }
-                {medication.packageConcentration && (
-                  <span className="text-gray-400 font-normal"> ({medication.packageConcentration})</span>
-                )}
               </span>
               <span className="mr-2">{medication.form}</span>
             </div>
@@ -1395,13 +1394,14 @@ function AppEnglish({ onChangeLanguage }) {
                   <h3 className="text-xl font-semibold">{enlargedImage.name}</h3>
                   <p className="text-gray-600">{enlargedImage.ingredient}</p>
                   <p className="text-gray-500">
-                    {enlargedImage.form === 'suppository' 
-                      ? `${enlargedImage.concentration}mg`
-                      : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
-                    }
-                    {enlargedImage.packageConcentration && (
-                      <span className="text-gray-400"> ({enlargedImage.packageConcentration})</span>
-                    )}
+                    <span className="font-bold text-blue-600">
+                      {enlargedImage.form === 'suppository' 
+                        ? `${enlargedImage.concentration}mg`
+                        : enlargedImage.packageConcentration
+                          ? `${enlargedImage.packageConcentration} (${enlargedImage.concentration}mg/${enlargedImage.volume}ml)`
+                          : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
+                      }
+                    </span>
                     {' '}{enlargedImage.form}
                   </p>
                   {enlargedImage.ageRestriction && (
