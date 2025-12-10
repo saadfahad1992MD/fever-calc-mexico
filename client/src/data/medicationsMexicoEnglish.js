@@ -141,7 +141,7 @@ export const medicationsMexicoEnglish = {
         concentration: 80, // mg per suppository
         form: 'suppository',
         image: '/medications/tempra-supp-100.jpg',
-        weightRange: '5-8 kg',
+        weightRange: '5-9 kg',
         ageRange: '1-12 months',
         ageRestriction: 'For infants'
       },
@@ -152,7 +152,7 @@ export const medicationsMexicoEnglish = {
         concentration: 150, // mg per suppository
         form: 'suppository',
         image: '/medications/tempra-supp-150.jpg',
-        weightRange: '9-15 kg',
+        weightRange: '10-15 kg',
         ageRange: '1-3 years',
         ageRestriction: 'For toddlers'
       },
