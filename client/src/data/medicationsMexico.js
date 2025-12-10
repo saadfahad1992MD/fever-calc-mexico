@@ -152,7 +152,7 @@ export const medicationsMexico = {
         concentration: 150, // mg per suppository
         form: 'supositorio',
         image: '/medications/tempra-supp-150.jpg',
-        weightRange: '10-15 kg',
+        weightRange: '9-15 kg',
         ageRange: '1-3 años',
         ageRestriction: 'Para niños pequeños'
       },
