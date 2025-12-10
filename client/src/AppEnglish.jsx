@@ -85,46 +85,6 @@ function AppEnglish({ onChangeLanguage }) {
       frequency = 'Every 6-8 hours'
       maxDailyDoses = 3
       maxSingleDose = 400 // Maximum 400mg per dose
-    } else if (selectedMedication.ingredient === 'Diclofenac') {
-      // New diclofenac calculation logic based on weight ranges
-      frequency = 'Every 8-12 hours'
-      maxDailyDoses = 2
-      
-      // Check age requirement (minimum 1 year)
-      if (ageInMonths < 12) {
-        setResult({ error: 'Diclofenac is suitable for children aged one year and above' })
-        return
-      }
-      
-      // Weight-based dosing for diclofenac suppositories
-      if (selectedMedication.form === 'suppository') {
-        let appropriateDose = 0
-        if (weightNum >= 8 && weightNum <= 16) {
-          appropriateDose = 12.5
-        } else if (weightNum >= 17 && weightNum <= 25) {
-          appropriateDose = 25
-        } else {
-          setResult({ error: 'Diclofenac is suitable for weights 8-25 kg only' })
-          return
-        }
-        
-        // Check if selected medication matches the appropriate dose
-        if (selectedMedication.concentration !== appropriateDose) {
-          setResult({ error: `Please select Diclofenac suppository ${appropriateDose}mg appropriate for your child's weight` })
-          return
-        }
-        
-        setResult({
-          medication: selectedMedication,
-          weight: weightNum,
-          doseMg: selectedMedication.concentration,
-          suppositories: 1,
-          frequency,
-          maxDailyDoses,
-          isSuppository: true
-        })
-        return
-      }
     }
 
     let totalDoseMg = weightNum * dosagePerKg
@@ -186,47 +146,21 @@ function AppEnglish({ onChangeLanguage }) {
   const getAppropriateSuppositoriesForAge = (ageInMonths, weightNum) => {
     if (!weightNum) return []
     
-    // Get all suppositories from the suppositories object
+    // Get paracetamol suppositories only
     const paracetamolSupps = suppositoriesData.paracetamol || []
-    const diclofenacSupps = suppositoriesData.diclofenac || []
     
-    const allSuppositories = [...paracetamolSupps, ...diclofenacSupps]
-    
-    return allSuppositories.filter(med => {
-      // For paracetamol suppositories, use weight-based filtering only
-      if (med.ingredient === 'Paracetamol') {
-        const weightRange = med.weightRange
-        let minWeight = 0, maxWeight = 999
-        if (weightRange) {
-          // Handle decimal weights like 7-12.9
-          const weightMatch = weightRange.match(/(\d+(?:\.\d+)?)-(\d+(?:\.\d+)?)/)
-          if (weightMatch) {
-            minWeight = parseFloat(weightMatch[1])
-            maxWeight = parseFloat(weightMatch[2])
-          }
+    return paracetamolSupps.filter(med => {
+      const weightRange = med.weightRange
+      let minWeight = 0, maxWeight = 999
+      if (weightRange) {
+        // Handle decimal weights like 7-12.9
+        const weightMatch = weightRange.match(/(\d+(?:\.\d+)?)-(\d+(?:\.\d+)?)/)
+        if (weightMatch) {
+          minWeight = parseFloat(weightMatch[1])
+          maxWeight = parseFloat(weightMatch[2])
         }
-        return weightNum >= minWeight && weightNum <= maxWeight
       }
-      
-      // For diclofenac suppositories, use weight-based filtering with minimum age of 1 year
-      if (med.ingredient === 'Diclofenac') {
-        // Check minimum age (12 months = 1 year)
-        if (ageInMonths < 12) return false
-        
-        // New diclofenac calculation logic:
-        // Weight 8-16 kg: 12.5mg dose
-        // Weight 17-25 kg: 25mg dose
-        if (weightNum >= 8 && weightNum <= 16) {
-          return med.concentration === 12.5
-        } else if (weightNum >= 17 && weightNum <= 25) {
-          return med.concentration === 25
-        }
-        
-        return false
-      }
-      
-      // Default return false for unknown medication types
-      return false
+      return weightNum >= minWeight && weightNum <= maxWeight
     })
   }
 
@@ -261,37 +195,7 @@ function AppEnglish({ onChangeLanguage }) {
           }
         }
       }
-      
-      if (medication.ingredient === 'Diclofenac') {
-        if (ageInMonths < 12) {
-          isSuppositoryUnsuitable = true
-          unsuitabilityReason = 'Suitable for children over 1 year old'
-        } else {
-          if (weightNum >= 8 && weightNum <= 16) {
-            if (medication.concentration !== 12.5) {
-              isSuppositoryUnsuitable = true
-              // Show the range for THIS medication (25mg), not the unsuitable one
-              unsuitabilityReason = 'Suitable for weight 17-25 kg'
-            }
-          } else if (weightNum >= 17 && weightNum <= 25) {
-            if (medication.concentration !== 25) {
-              isSuppositoryUnsuitable = true
-              // Show the range for THIS medication (12.5mg), not the unsuitable one
-              unsuitabilityReason = 'Suitable for weight 8-16 kg'
-            }
-          } else {
-            isSuppositoryUnsuitable = true
-            // Show specific range based on concentration
-            if (medication.concentration === 12.5) {
-              unsuitabilityReason = 'Suitable for weight 8-16 kg'
-            } else if (medication.concentration === 25) {
-              unsuitabilityReason = 'Suitable for weight 17-25 kg'
-            } else {
-              unsuitabilityReason = 'Suitable for weight 8-25 kg'
-            }
-          }
-        }
-      }
+
     }
     
     const isDisabled = (isIbuprofen && isUnder6Months) || isSuppositoryUnsuitable || (isAdolDrops && is2YearsOrAbove)
@@ -751,33 +655,7 @@ function AppEnglish({ onChangeLanguage }) {
                       ))}
                     </div>
                   </div>
-                  
-                  {/* Diclofenac Suppositories Section - Show ALL */}
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-4 h-4 bg-green-500 rounded-full"></div>
-                      <h3 className="text-lg font-semibold text-green-700">Diclofenac Suppositories</h3>
-                      <Badge variant="outline" className="text-green-600">
-                        For children over 1 year
-                      </Badge>
-                    </div>
-                    
-                    {/* Additional Information */}
-                    <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                      <p className="text-sm text-green-800 leading-relaxed">
-                        For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as diclofenac suppositories
-                      </p>
-                      <p className="text-sm text-green-700 font-medium mt-2">
-                        <strong>Note:</strong> Diclofenac suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen syrup. Do not take them at the same time and leave 8 hours between them
-                      </p>
-                    </div>
-                    
-                    <div className="grid gap-4 md:grid-cols-2">
-                      {suppositoriesData.diclofenac.map(med => (
-                        <MedicationCard key={med.id} medication={med} category="diclofenac_supp" />
-                      ))}
-                    </div>
-                  </div>
+
                 </>
               )}
             </div>
@@ -845,8 +723,8 @@ function AppEnglish({ onChangeLanguage }) {
                           <p><strong>Child's Weight:</strong> {result.weight} kg</p>
                           <p><strong>Frequency:</strong> {result.frequency}</p>
                           <p><strong>Maximum Daily:</strong> {result.maxDailyDoses} doses</p>
-                          {/* NSAIDs Warning for Ibuprofen and Diclofenac */}
-                          {(result.medication.ingredient === 'Ibuprofen' || result.medication.ingredient === 'Diclofenac') && (
+                          {/* NSAIDs Warning for Ibuprofen */}
+                          {result.medication.ingredient === 'Ibuprofen' && (
                             <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded-lg">
                               <p className="text-orange-800 text-sm font-medium">
                                 Do not combine ibuprofen syrup and diclofenac suppositories at the same time; leave 8 hours between them
@@ -1094,33 +972,7 @@ function AppEnglish({ onChangeLanguage }) {
                               </div>
                             </div>
 
-                            {/* Diclofenac Card */}
-                            <div className="bg-white border-2 border-red-200 rounded-lg p-3">
-                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Diclofenac</h5>
-                              <p className="text-center text-xs text-red-500 mb-2">NSAIDs</p>
-                              <div className="space-y-1.5 text-xs">
-                                <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Minimum Age:</span>
-                                  <span className="text-red-700">1 year</span>
-                                </div>
-                                <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Duration of Effect:</span>
-                                  <span className="text-red-700">8-12 hours</span>
-                                </div>
-                                <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
-                                  <span className="text-red-700">2 doses</span>
-                                </div>
-                                <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Available Forms:</span>
-                                  <span className="text-red-700">Suppositories only</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">Important Warning:</span>
-                                  <span className="text-red-700">Do not combine with Ibuprofen</span>
-                                </div>
-                              </div>
-                            </div>
+
                           </div>
 
                           {/* Desktop Table View */}
@@ -1134,10 +986,7 @@ function AppEnglish({ onChangeLanguage }) {
                                     Ibuprofen
                                     <div className="text-xs text-red-500 mt-1">NSAIDs</div>
                                   </th>
-                                  <th className="text-center p-3 font-semibold text-red-700 whitespace-nowrap">
-                                    Diclofenac
-                                    <div className="text-xs text-red-500 mt-1">NSAIDs</div>
-                                  </th>
+
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-gray-200">
@@ -1145,31 +994,31 @@ function AppEnglish({ onChangeLanguage }) {
                                   <td className="p-3 font-medium whitespace-nowrap">Minimum Age</td>
                                   <td className="p-3 text-center text-blue-700 whitespace-nowrap">2 months</td>
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">6 months</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">1 year</td>
+
                                 </tr>
                                 <tr className="bg-gray-25">
                                   <td className="p-3 font-medium whitespace-nowrap">Duration of Effect</td>
                                   <td className="p-3 text-center text-blue-700 whitespace-nowrap">4-6 hours</td>
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">6-8 hours</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">8-12 hours</td>
+
                                 </tr>
                                 <tr>
                                   <td className="p-3 font-medium whitespace-nowrap">Maximum Daily Doses</td>
                                   <td className="p-3 text-center text-blue-700 whitespace-nowrap">5 doses</td>
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">3 doses</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">2 doses</td>
+
                                 </tr>
                                 <tr className="bg-gray-25">
                                   <td className="p-3 font-medium whitespace-nowrap">Available Forms</td>
                                   <td className="p-3 text-center text-blue-700">Drops, Syrup, suppositories</td>
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">Mainly Syrup</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">Suppositories only</td>
+
                                 </tr>
                                 <tr>
                                   <td className="p-3 font-medium whitespace-nowrap">Important Warning</td>
                                   <td className="p-3 text-center text-blue-700">-</td>
                                   <td className="p-3 text-center text-red-700 text-xs"></td>
-                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Ibuprofen</td>
+
                                 </tr>
                               </tbody>
                             </table>
@@ -1257,7 +1106,7 @@ function AppEnglish({ onChangeLanguage }) {
                               <strong className="text-red-600">Do not combine medications containing Paracetamol</strong> at the same time - there must be 4-6 hours between them.
                             </p>
                             <p>
-                              <strong className="text-red-600">And do not combine medications containing Ibuprofen (Brufen) or Diclofenac</strong> at the same time - there must be 8 hours between them.
+                              <strong className="text-red-600">And do not combine medications containing Ibuprofen (Brufen)</strong> at the same time - there must be 8 hours between them.
                             </p>
                           </div>
                         </div>
