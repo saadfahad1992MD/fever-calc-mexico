@@ -141,7 +141,7 @@ export const medicationsMexico = {
         concentration: 80, // mg per suppository
         form: 'supositorio',
         image: '/medications/tempra-supp-100.jpg',
-        weightRange: '3-10 kg',
+        weightRange: '5-8 kg',
         ageRange: '1-12 meses',
         ageRestriction: 'Para bebés'
       },
@@ -152,7 +152,7 @@ export const medicationsMexico = {
         concentration: 150, // mg per suppository
         form: 'supositorio',
         image: '/medications/tempra-supp-150.jpg',
-        weightRange: '10-16 kg',
+        weightRange: '9-15 kg',
         ageRange: '1-3 años',
         ageRestriction: 'Para niños pequeños'
       },
@@ -163,7 +163,7 @@ export const medicationsMexico = {
         concentration: 300, // mg per suppository
         form: 'supositorio',
         image: '/medications/tempra-supp-300.jpg',
-        weightRange: '16-32 kg',
+        weightRange: '16-30 kg',
         ageRange: '3-12 años',
         ageRestriction: 'Para niños mayores',
         note: 'Piremol, Marca del Ahorro, Similares'
