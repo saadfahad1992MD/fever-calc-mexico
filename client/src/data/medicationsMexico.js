@@ -135,48 +135,36 @@ export const medicationsMexico = {
   suppositories: {
     paracetamol: [
       {
-        id: 'tempra-supp-100',
-        name: 'Tempra Supositorio 100mg',
+        id: 'tempra-supp-80',
+        name: 'Tempra Supositorio 80mg',
         ingredient: 'Paracetamol',
-        concentration: 100, // mg per suppository
+        concentration: 80, // mg per suppository
         form: 'Supositorio',
         image: '/medications/tempra-supp-100.jpg',
-        weightRange: '3-12 kg',
-        ageRange: '1-18 meses',
-        ageRestriction: 'Para bebés y niños pequeños'
+        weightRange: '3-10 kg',
+        ageRange: '1-12 meses',
+        ageRestriction: 'Para bebés'
       },
       {
-        id: 'tempra-supp-300',
-        name: 'Tempra Supositorio 300mg',
+        id: 'tempra-supp-150',
+        name: 'Tempra Supositorio 150mg',
+        ingredient: 'Paracetamol',
+        concentration: 150, // mg per suppository
+        form: 'Supositorio',
+        image: '/medications/tempra-supp-150.jpg',
+        weightRange: '10-16 kg',
+        ageRange: '1-3 años',
+        ageRestriction: 'Para niños pequeños'
+      },
+      {
+        id: 'paracetamol-supp-300',
+        name: 'Paracetamol Supositorio 300mg',
         ingredient: 'Paracetamol',
         concentration: 300, // mg per suppository
         form: 'Supositorio',
         image: '/medications/tempra-supp-300.jpg',
-        weightRange: '12-30 kg',
-        ageRange: '18 meses-12 años',
-        ageRestriction: 'Para niños mayores'
-      },
-      {
-        id: 'paracetamol-supp-100-generico',
-        name: 'Paracetamol Supositorio 100mg (Genérico)',
-        ingredient: 'Paracetamol',
-        concentration: 100, // mg per suppository
-        form: 'Supositorio',
-        image: '/medications/tempra-supp-100.jpg',
-        weightRange: '3-12 kg',
-        ageRange: '1-18 meses',
-        ageRestriction: 'Para bebés y niños pequeños',
-        note: 'Piremol, Marca del Ahorro, Similares'
-      },
-      {
-        id: 'paracetamol-supp-300-generico',
-        name: 'Paracetamol Supositorio 300mg (Genérico)',
-        ingredient: 'Paracetamol',
-        concentration: 300, // mg per suppository
-        form: 'Supositorio',
-        image: '/medications/tempra-supp-300.jpg',
-        weightRange: '12-30 kg',
-        ageRange: '18 meses-12 años',
+        weightRange: '16-32 kg',
+        ageRange: '3-12 años',
         ageRestriction: 'Para niños mayores',
         note: 'Piremol, Marca del Ahorro, Similares'
       }
