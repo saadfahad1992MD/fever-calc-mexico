@@ -139,7 +139,7 @@ export const medicationsMexico = {
         name: 'Tempra Supositorio 80mg',
         ingredient: 'Paracetamol',
         concentration: 80, // mg per suppository
-        form: 'Supositorio',
+        form: 'supositorio',
         image: '/medications/tempra-supp-100.jpg',
         weightRange: '3-10 kg',
         ageRange: '1-12 meses',
@@ -150,7 +150,7 @@ export const medicationsMexico = {
         name: 'Tempra Supositorio 150mg',
         ingredient: 'Paracetamol',
         concentration: 150, // mg per suppository
-        form: 'Supositorio',
+        form: 'supositorio',
         image: '/medications/tempra-supp-150.jpg',
         weightRange: '10-16 kg',
         ageRange: '1-3 años',
@@ -161,7 +161,7 @@ export const medicationsMexico = {
         name: 'Paracetamol Supositorio 300mg',
         ingredient: 'Paracetamol',
         concentration: 300, // mg per suppository
-        form: 'Supositorio',
+        form: 'supositorio',
         image: '/medications/tempra-supp-300.jpg',
         weightRange: '16-32 kg',
         ageRange: '3-12 años',
