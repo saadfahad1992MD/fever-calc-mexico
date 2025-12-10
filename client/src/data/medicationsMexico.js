@@ -10,6 +10,7 @@ export const medicationsMexico = {
       ingredient: 'Paracetamol',
       concentration: 160, // mg per 5ml
       volume: 5, // ml
+      packageConcentration: '3.2g/100ml', // What's shown on package
       form: 'Jarabe',
       image: '/medications/tempra-jarabe.jpg',
       ageRestriction: '2-11 años'
@@ -31,6 +32,7 @@ export const medicationsMexico = {
       ingredient: 'Paracetamol',
       concentration: 160, // mg per 5ml
       volume: 5, // ml
+      packageConcentration: '3.2g/100ml', // What's shown on package
       form: 'Jarabe',
       image: '/medications/tylenol-infantil.jpg',
       ageRestriction: '2-12 años'
@@ -52,6 +54,7 @@ export const medicationsMexico = {
       ingredient: 'Paracetamol',
       concentration: 160, // mg per 5ml
       volume: 5, // ml
+      packageConcentration: '3.2g/100ml', // What's shown on package
       form: 'Jarabe',
       image: '/medications/tempra-jarabe.jpg',
       ageRestriction: '2-11 años',
@@ -77,6 +80,7 @@ export const medicationsMexico = {
       ingredient: 'Ibuprofeno',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
+      packageConcentration: '2g/100ml', // What's shown on package
       form: 'Suspensión',
       image: '/medications/motrin-infantil.jpg',
       ageRestriction: '2-12 años'
@@ -98,6 +102,7 @@ export const medicationsMexico = {
       ingredient: 'Ibuprofeno',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
+      packageConcentration: '2g/100ml', // What's shown on package
       form: 'Suspensión',
       image: '/medications/motrin-infantil.jpg',
       ageRestriction: '2-12 años'
@@ -109,6 +114,7 @@ export const medicationsMexico = {
       ingredient: 'Ibuprofeno',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
+      packageConcentration: '2g/100ml', // What's shown on package
       form: 'Suspensión',
       image: '/medications/motrin-infantil.jpg',
       ageRestriction: '2-12 años',

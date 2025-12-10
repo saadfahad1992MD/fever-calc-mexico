@@ -374,6 +374,9 @@ function AppEnglish({ onChangeLanguage }) {
                   ? `${medication.concentration}mg`
                   : `${medication.concentration}mg/${medication.volume}ml`
                 }
+                {medication.packageConcentration && (
+                  <span className="text-gray-400 font-normal"> ({medication.packageConcentration})</span>
+                )}
               </span>
               <span className="mr-2">{medication.form}</span>
             </div>
@@ -1395,7 +1398,11 @@ function AppEnglish({ onChangeLanguage }) {
                     {enlargedImage.form === 'suppository' 
                       ? `${enlargedImage.concentration}mg`
                       : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
-                    } {enlargedImage.form}
+                    }
+                    {enlargedImage.packageConcentration && (
+                      <span className="text-gray-400"> ({enlargedImage.packageConcentration})</span>
+                    )}
+                    {' '}{enlargedImage.form}
                   </p>
                   {enlargedImage.ageRestriction && (
                     <p className="text-blue-600 font-medium text-sm">
