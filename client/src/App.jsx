@@ -291,7 +291,9 @@ function App({ onChangeLanguage }) {
                     : `${medication.concentration}mg/${medication.volume}ml`
                 }
               </span>
-              <span className="mr-2">{medication.form}</span>
+              {medication.form !== 'supositorio' && (
+                <span className="mr-2">{medication.form}</span>
+              )}
             </div>
             {medication.ageRestriction && (
               <p className="text-xs text-blue-600 font-medium mt-1">
@@ -1241,7 +1243,9 @@ function App({ onChangeLanguage }) {
                           : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
                       }
                     </span>
-                    {' '}{enlargedImage.form}
+                    {enlargedImage.form !== 'supositorio' && (
+                      <>{' '}{enlargedImage.form}</>
+                    )}
                   </p>
                   {enlargedImage.ageRestriction && (
                     <p className="text-blue-600 font-medium text-sm">
